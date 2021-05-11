@@ -1,9 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './assets/tailwind.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import { router } from './router/index.js'
+import Meta from 'vue-meta'
+import VueCompositionApi from '@vue/composition-api'
+import vClickOutside from 'v-click-outside'
 
 Vue.config.productionTip = false
 
+Vue.use(VueCompositionApi)
+Vue.use(Meta)
+Vue.use(vClickOutside)
+
 new Vue({
   render: h => h(App),
+  router
 }).$mount('#app')

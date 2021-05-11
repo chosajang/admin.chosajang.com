@@ -1,7 +1,10 @@
 <template>
-  <div class="hello">
+  <div class="hello mx-auto container">
     <h1>{{ msg }}</h1>
-    <p class="bg-gray-700">
+    <div class="bg-gray-700 font-bold text-white h-10">
+      <i class="far fa-users-cog mr-2"></i>tailwindcss 적용!
+    </div>
+    <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
