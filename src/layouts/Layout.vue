@@ -16,9 +16,17 @@ export default {
   components: {
     AdminLayout
   },
+  data() {
+    return {
+      // layout: 'BlankLayout'
+    }
+  },
+  created() {
+    // layout = this.$route
+    console.log( 'created', this.$route.meta.layout )
+  },
   setup (props, { root }) {
     const layout = computed(() => root.$route.meta.layout || 'BlankLayout');
-    console.log('Layout.vue => ', root.$route.meta.layout)
     return {
       layout
     };
