@@ -13,7 +13,7 @@
       <li class="pt-4 py-2 pl-4"><p class="text-xs font-bold text-gray-300">기본 메뉴</p></li>
       <a href="#"><li class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-columns mr-4"></i>대시보드</li></a>
       <a href="#"><li class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="far fa-building mr-4"></i>기업 관리</li></a>
-      <a href="#" v-on:click="sideBarToggle"><li class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-users-cog mr-4"></i>관리자 계정 관리</li></a>
+      <a href="#"><li class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-users-cog mr-4"></i>관리자 계정 관리</li></a>
     </ul>
     <!--// Left Menu : ED -->
   </div>
