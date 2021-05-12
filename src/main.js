@@ -12,7 +12,6 @@ Vue.config.productionTip = false
 Vue.use(VueCompositionApi)
 Vue.use(Meta)
 Vue.use(vClickOutside)
-Vue.use(VueCompositionApi)
 
 new Vue({
   render: h => h(App),

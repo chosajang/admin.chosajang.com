@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-md bg-gray-700 text-gray-200 text-sm items-center md:block left-0 fixed top-16 bottom-0 overflow-y-auto flex-row flex-no-wrap overflow-hidden w-52 z-10">
+  <div v-show="isSidebarObj" class="shadow-md hidden bg-gray-700 text-gray-200 text-sm items-center md:block left-0 fixed top-16 bottom-0 overflow-y-auto flex-row flex-no-wrap overflow-hidden w-52 z-10">
     <!--// Profile Info -->
     <div class="hidden md:flex flex-row items-center py-2 bg-gray-900">
       <div class="flex-none w-14 h-14 ml-2"><img src="/assets/images/user.png" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
@@ -20,7 +20,37 @@
 </template>
 
 <script>
-export default {
 
+export default {
+  props: ['isSidebar'],
+  data() {
+    return {
+      isSidebarObj: this.isSidebar,
+      isSidebarException: false
+    }
+  },
+  created() {
+    // console.log( 'created', this.isSidebarObj );
+    window.addEventListener('resize', this.handleResize);
+  },
+  destroyed() {
+    document.body.classList.remove('bg-gray-50', 'font-sans')
+    window.removeEventListener('resize', this.handleResize);
+  },
+  methods: {
+    sideBarToggle() {
+      console.log('toggle')
+    },
+    handleResize(event) { 
+      this.width = window.innerWidth
+      if( this.width >= 768 ) { 
+        this.isSidebarObj = true
+      } else {
+        this.isSidebarObj = false
+      }
+
+      console.log( this.width, this.isSidebarObj )
+    }
+  }
 };
 </script>

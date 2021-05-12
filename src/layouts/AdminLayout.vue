@@ -1,8 +1,8 @@
 <template>
   <div>
-    <admin-header></admin-header>
+    <admin-header v-bind:isSidebar="isSidebar"></admin-header>
     <main class="w-full">
-      <sidebar>{{ isSidebar }}</sidebar>
+      <sidebar v-bind:isSidebar="isSidebar"></sidebar>
       <slot></slot>
     </main>
   </div>
@@ -16,17 +16,18 @@ export default {
   name: 'AdminLayout',
   data () {
     return {
-      isSidebar: false
+      isSidebar: true,
+      width: 0
     }
   },
   components: {
     AdminHeader,
     Sidebar
   },
-  mounted () {
+  created() {
     document.body.classList.add('bg-gray-50', 'font-sans')
   },
-  destroyed () {
+  destroyed() {
     document.body.classList.remove('bg-gray-50', 'font-sans')
   }
 };
