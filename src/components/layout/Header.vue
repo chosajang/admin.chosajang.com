@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-none w-full h-16 bg-gray-800 sticky top-0 z-10">
     <!--// mobile menu icon -->
-    <div v-on:click="isSidebarObj = !isSidebarObj" class="flex flex-none items-center px-4 bg-gray-800 md:hidden cursor-pointer text-gray-200">
+    <div v-on:click="sideBarToggle" v-click-outside="btnSideBarOutSide" class="flex flex-none items-center px-4 bg-gray-800 md:hidden cursor-pointer text-gray-200">
     <i class="fas fa-bars text-2xl"></i>
     </div>
     <!--// logo -->
@@ -29,13 +29,11 @@
 
 <script>
 export default {
-  props: ['isSidebar'],
   name: 'Header',
   data () {
     return {
       isPersonalMenu: false,
       isPerosnalMenuException: false,
-      isSidebarObj: this.isSidebar,
     }
   },
   methods: {
@@ -46,6 +44,12 @@ export default {
     },
     btnPersonalMenuOutSide() {
       this.isPerosnalMenuException = false
+    },
+    sideBarToggle() {
+      this.$EventBus.$emit('sideBarToggle')
+    },
+    btnSideBarOutSide() {
+      this.$EventBus.$emit('btnSideBarOutSide')
     }
   }
 };

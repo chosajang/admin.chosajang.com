@@ -1,8 +1,8 @@
 <template>
   <div>
-    <admin-header v-bind:isSidebar="isSidebar"></admin-header>
+    <admin-header></admin-header>
     <main class="w-full">
-      <sidebar v-bind:isSidebar="isSidebar"></sidebar>
+      <sidebar></sidebar>
       <slot></slot>
     </main>
   </div>
@@ -14,12 +14,6 @@ import Sidebar from '../components/layout/Sidebar.vue';
 
 export default {
   name: 'AdminLayout',
-  data () {
-    return {
-      isSidebar: true,
-      width: 0
-    }
-  },
   components: {
     AdminHeader,
     Sidebar
