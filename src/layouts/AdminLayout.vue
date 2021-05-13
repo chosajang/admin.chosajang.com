@@ -18,7 +18,7 @@ export default {
     AdminHeader,
     Sidebar
   },
-  created() {
+  mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
   },
   destroyed() {

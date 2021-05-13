@@ -8,13 +8,14 @@
 
 <script>
 import { computed } from '@vue/composition-api'
-// import BlankLayout from './BlankLayout.vue'
+import BlankLayout from './BlankLayout.vue'
 import AdminLayout from './AdminLayout.vue'
 
 export default {
   name: 'Layout',
   components: {
-    AdminLayout
+    AdminLayout,
+    BlankLayout
   },
   setup (props, {root}) {
     const layout = computed(() => root.$route.meta.layout || 'BlankLayout');
