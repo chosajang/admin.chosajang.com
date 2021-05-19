@@ -23,12 +23,9 @@ export default {
     AdminHeader,
     Sidebar
   },
-<<<<<<< HEAD
   created() {
     this.userInfo = this.$store.getters.getUserInfo
   },
-=======
->>>>>>> main
   mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
   },
