@@ -84,6 +84,33 @@ const routes = [
     component: AccountModifyView,
     beforeEnter: requireAuth()
   },
+  {
+    path: '/company',
+    name: 'companyList',
+    props: true,
+    meta: {
+      layout: 'AdminLayout'
+    },
+    component: CompanyListView
+  },
+  {
+    path: '/company/view/:seq',
+    name: 'companyView',
+    props: true,
+    meta: {
+      layout: 'AdminLayout'
+    },
+    component: CompanyView
+  },
+  {
+    path: '/company/create',
+    name: 'companyCreate',
+    props: true,
+    meta: {
+      layout: 'AdminLayout'
+    },
+    component: CompanyCreateView
+  },
   { /* 404 error 방지 */
     path: '*',
     redirect: '/'

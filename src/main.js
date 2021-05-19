@@ -8,8 +8,11 @@ import VueCompositionApi from '@vue/composition-api'
 import vClickOutside from 'v-click-outside'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+<<<<<<< HEAD
 import AxiosPlugin from 'vue-axios-cors'
 import store from './store/index.js'
+=======
+>>>>>>> main
 
 Vue.config.productionTip = false
 
@@ -17,7 +20,10 @@ Vue.use(VueCompositionApi)
 Vue.use(Meta)
 Vue.use(vClickOutside)
 Vue.use(VueSweetalert2)
+<<<<<<< HEAD
 Vue.use(AxiosPlugin)
+=======
+>>>>>>> main
 
 Vue.prototype.$EventBus = new Vue()
 

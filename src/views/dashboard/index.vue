@@ -200,6 +200,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { apiDashboard } from '@/api'
 
 export default {
@@ -207,4 +208,7 @@ export default {
     apiDashboard()
   }
 }
+=======
+
+>>>>>>> main
 </script>
