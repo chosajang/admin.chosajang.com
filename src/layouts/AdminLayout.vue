@@ -9,16 +9,24 @@
 </template>
 
 <script>
-import AdminHeader from '../components/layout/Header.vue';
-import Sidebar from '../components/layout/Sidebar.vue';
+import AdminHeader from '../components/layout/Header.vue'
+import Sidebar from '../components/layout/Sidebar.vue'
 
 export default {
   name: 'AdminLayout',
+  data() {
+    return {
+      userInfo: ''
+    }
+  },
   components: {
     AdminHeader,
     Sidebar
   },
   created() {
+    this.userInfo = this.$store.getters.getUserInfo
+  },
+  mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
   },
   destroyed() {
