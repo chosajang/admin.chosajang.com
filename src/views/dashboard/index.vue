@@ -200,15 +200,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import { apiDashboard } from '@/api'
-
 export default {
-  mounted() {
-    apiDashboard()
-  }
 }
-=======
-
->>>>>>> main
 </script>
