@@ -9,7 +9,7 @@
           <div class="w-full h-auto bg-gray-400 hidden md:block md:w-1/2 bg-cover rounded-l-lg" style="background-image: url('/assets/images/login03.jpg')"></div>
           <!-- Col -->
           <div class="w-full md:w-1/2 bg-white p-5 rounded-lg md:rounded-l-none">
-            <h3 class="pt-4 text-2xl text-green-700 text-center">CSJ 관리자</h3>
+            <h3 class="pt-4 text-2xl text-gray-700 font-bold text-center">CSJ 관리자</h3>
               <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="./index.html" method="get">
               <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-900" for="id">아이디</label>
