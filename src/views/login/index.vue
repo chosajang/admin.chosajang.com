@@ -6,20 +6,20 @@
         <!-- Row -->
         <div class="w-full flex">
           <!-- Col -->
-          <div class="w-full h-auto bg-gray-400 hidden md:block md:w-1/2 bg-cover rounded-l-lg" style="background-image: url('/assets/images/solution-login-02.jpg')"></div>
+          <div class="w-full h-auto bg-gray-400 hidden md:block md:w-1/2 bg-cover rounded-l-lg" style="background-image: url('/assets/images/login03.jpg')"></div>
           <!-- Col -->
           <div class="w-full md:w-1/2 bg-white p-5 rounded-lg md:rounded-l-none">
-            <h3 class="pt-4 text-2xl font-bold text-center">CSJ 관리자</h3>
+            <h3 class="pt-4 text-2xl text-green-700 text-center">CSJ 관리자</h3>
               <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="./index.html" method="get">
               <div class="mb-4">
-                <label class="block mb-2 text-sm font-bold text-gray-700" for="id">아이디</label>
-                <input v-model="loginForm.id.value" v-bind:class="loginForm.id.style" @keyup="idCheck" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="text" placeholder="아이디" />
+                <label class="block mb-2 text-sm font-bold text-gray-900" for="id">아이디</label>
+                <input v-model="loginForm.id.value" v-bind:class="loginForm.id.style" @keyup="idCheck" class="w-full px-3 py-2 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="text" placeholder="id" />
                 <p class="text-xs italic text-red-500 mt-2 h-2">{{ loginForm.id.errorMessage }}</p>
               </div>
 
               <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="password">비밀번호</label>
-                <input v-model="loginForm.password.value" v-bind:class="loginForm.password.style" @keyup="passwordCheck" @keyup.13="login" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-green-700" type="password" placeholder="********" />
+                <input v-model="loginForm.password.value" v-bind:class="loginForm.password.style" @keyup="passwordCheck" @keyup.13="login" class="w-full px-3 py-2 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-green-700" type="password" placeholder="password" />
                 <p class="text-xs italic text-red-500 mt-2 h-2"> {{ loginForm.password.errorMessage }}</p>
               </div>
 
