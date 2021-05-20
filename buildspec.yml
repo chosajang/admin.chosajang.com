@@ -16,8 +16,8 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Node.js code
       - yarn build
-  # post_build:
-  #   commands:
-  #     - echo Build completed on `date`
-  #     - echo Distributing to S3...
-  #     - aws s3 cp --recursive dist/ s3://admin.chosajang.com
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Distributing to S3...
+      - aws s3 cp --recursive dist/ s3://admin.chosajang.com
