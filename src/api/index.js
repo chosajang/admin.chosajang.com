@@ -27,30 +27,20 @@ instance.interceptors.response.use(
   }
 )
 
+function apiUserInfo(user_seq) {
+  return instance.get(`/users/${user_seq}`)
+}
 
 function apiLogin (id, password) {
   let form = new FormData()
   form.append('id', id)
   form.append('password', password)
-  return instance.post('/solution/login', form)
+  return instance.post('/login', form)
 }
 
 function apiDashboard () {
   return instance.get('/solution/company/companyList')
 }
-/*
-function apiCallSet(url, method) {
-  const userInfo = getUserInfo()
-  const options = {
-    url: `http://192.168.1.84${url}`,
-    method: method,
-    headers: {
-      'Authorization': `Bearer ${userInfo.apiKey}`
-    }
-  }
-  return options
-}
-*/
 
 function apiCompanyList () {
   //let options = apiCallSet('/solution/company/companyList', 'GET')
@@ -82,6 +72,7 @@ function apiCompanyRegister(company_data, admin_data){
 
 
 export {
+  apiUserInfo,
   apiLogin,
   apiDashboard,
   apiCompanyList,

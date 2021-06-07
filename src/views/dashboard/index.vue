@@ -200,6 +200,15 @@
 </template>
 
 <script>
+import { apiUserInfo } from '@/api'
+
 export default {
+  name: 'dashboard',
+  mounted() {
+    apiUserInfo(1)
+    .then(res => {
+      console.log(res.data)
+    })
+  }
 }
 </script>
