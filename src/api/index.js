@@ -8,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `Bearer ${ store.getters.getUserInfo.apiKey }`
+    config.headers.Authorization = `Bearer ${ store.getters.getUserInfo.bearerToken }`
     return config
   },
   (error) => {
