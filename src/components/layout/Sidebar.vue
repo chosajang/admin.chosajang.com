@@ -5,7 +5,7 @@
       <div class="flex-none w-14 h-14 ml-2"><img src="/assets/images/user.png" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
       <div class="flex-col space-y-1 pl-2 w-full h-14 justify-content items-center">
         <div class="mt-2 whitespace-nowrap text-sm">{{ userInfo.name }}</div>
-        <div class="text-xs whitespace-nowrap">솔루션 관리자</div>
+        <div class="text-xs whitespace-nowrap">{{ userInfo.nickname }}</div>
       </div>
     </div>
     <!--// Left Menu : ST -->
