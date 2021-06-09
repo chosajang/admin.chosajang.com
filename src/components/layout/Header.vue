@@ -7,8 +7,8 @@
     <!--// logo -->
     <div class="flex flex-grow md:w-64 items-center z-10">
     <router-link to="/dashboard" class="flex m-auto md:ml-3 text-lg text-gray-200 items-center font-semibold tracking-widest uppercase focus:outline-none focus:shadow-outline">
-      <img class="w-8 h-8 mr-2" src="/assets/images/research.png"/>
-      AI채용 솔루션 관리자
+      <img class="w-8 h-8 mr-2" src="/assets/images/elephant.png"/>
+      CSJ Admin
     </router-link>
     </div>
     <!--// personal menu -->
