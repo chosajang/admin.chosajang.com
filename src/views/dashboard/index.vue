@@ -69,7 +69,7 @@
             <div class="flex flex-col bg-white shadow-sm rounded p-4 min-w-full">
               <div class="flex flex-row grid grid-cols-6 mb-4">
                 <div class="col-span-5 text-sm font-bold">
-                  기업 목록
+                  게시중인 글
                 </div>
                 <div class="col-span-1 text-sm text-right leading-6">
                   <!-- <button type="button" class="w-full bg-gray-200 text-gray-700 rounded px-4 py-1 transition duration-200 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline" >
@@ -148,7 +148,7 @@
             <div class="flex flex-col bg-white shadow-sm rounded p-4 min-w-full">
               <div class="flex flex-row grid grid-cols-6 mb-4">
                 <div class="col-span-5 text-sm font-bold">
-                  승인 요청 기업
+                  최근 작성 중인 글
                 </div>
                 <div class="col-span-1 text-sm text-right leading-6">
                   <!-- <button type="button" class="w-full bg-gray-200 text-gray-700 rounded px-4 py-1 transition duration-200 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline" >
