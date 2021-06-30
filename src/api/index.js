@@ -8,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `Bearer ${ store.getters.getUserInfo.bearerToken }`
+    config.headers.Authorization = `${ store.getters.getUserInfo.token_type } ${ store.getters.getUserInfo.access_token }`
     return config
   },
   (error) => {
@@ -35,7 +35,7 @@ function apiLogin (id, password) {
   let form = new FormData()
   form.append('id', id)
   form.append('password', password)
-  return instance.post('/login', form)
+  return instance.post('/api/login', form)
 }
 
 function apiDashboard () {
