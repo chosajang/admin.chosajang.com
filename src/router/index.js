@@ -17,13 +17,12 @@ const requireAuth = () => (to, from, next) => {
     bus.$emit('start:spinner')
   }
   const userInfo = store.getters.getUserInfo
-  console.log(userInfo.apiKey)
-  // if( userInfo.apiKey === '' ) {
-  //   return next('/login')
-  // } else {
-  //   return next()
-  // }
-  return next()
+  
+  if( userInfo.access_token === '' ) {
+    return next('/login')
+  } else {
+    return next()
+  }
 }
 
 const routes = [
