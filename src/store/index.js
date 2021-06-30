@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   strict: false,
   state: {
     userInfo: {
-      apiKey: ''
+      access_token: ''
     }
   },
   plugins: [
