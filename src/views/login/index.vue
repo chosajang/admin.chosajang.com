@@ -9,7 +9,7 @@
           <div class="w-full h-auto bg-gray-400 hidden md:block md:w-1/2 bg-cover rounded-l-lg" style="background-image: url('/assets/images/login03.jpg')"></div>
           <!-- Col -->
           <div class="w-full md:w-1/2 bg-white p-5 rounded-lg md:rounded-l-none">
-            <h3 class="pt-4 text-2xl text-gray-700 font-bold text-center">CSJ 관리자</h3>
+            <h3 class="pt-4 text-2xl text-gray-700 font-bold text-center">관리자 로그인</h3>
               <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="./index.html" method="get">
               <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-900" for="id">아이디</label>
@@ -24,7 +24,7 @@
               </div>
 
               <div class="mb-4">
-                <input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
+                <input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" v-model="idChecked" />
                 <label class="text-sm" for="checkbox_id">아이디 기억하기</label>
               </div>
 
@@ -71,7 +71,8 @@ export default {
         style: {
           'hover:bg-blue-700': true
         }
-      }
+      },
+      idChecked: false
     }
   },
   methods: {
@@ -92,27 +93,29 @@ export default {
             'hover:bg-blue-700': true
           }
           btnSpinner(this.btnLogin,false,'로그인',btnCommonStyle)
-          if( apiData.result ){
-            // localStorage.userInfo = JSON.stringify(apiData.data)
-            this.$store.commit('SET_USERINFO', apiData.data)
-            this.$swal({
-              title: '로그인',
-              text: '로그인 되었습니다',
-              icon: 'success'
-            }).then(() => {
-              this.$router.push({ path: '/dashboard' })
-            })
-          } else {
-            this.$swal({
-              title: '로그인 실패',
-              html: apiData.message,
-              icon: 'error'
-            })
-          }
+          this.$store.commit('SET_USERINFO', apiData)
+          this.$swal({
+            title: '로그인',
+            text: '로그인 되었습니다',
+            icon: 'success'
+          }).then(() => {
+            if( this.idChecked ){
+              localStorage.setItem('rememberId', this.loginForm.id.value) 
+              localStorage.setItem('idChecked', this.idChecked)
+            } else {
+              localStorage.removeItem('rememberId')
+              localStorage.removeItem('idChecked')
+            }
+            this.$router.push({ path: '/dashboard' })
+          })
 
         }).catch(err => {
           btnSpinner(this.btnLogin,false,'로그인')
-          console.log('catch', err)
+          this.$swal({
+              title: '로그인 실패',
+              text: err.response.data.error,
+              icon: 'error'
+            })
         })
       }
       
@@ -174,6 +177,8 @@ export default {
 
   },
   mounted() {
+    this.idChecked = localStorage.getItem('idChecked') == null ? false : localStorage.getItem('idChecked')
+    this.loginForm.id.value = localStorage.getItem('rememberId') == null ? '' : localStorage.getItem('rememberId')
     document.getElementById('app').classList.add('h-screen', 'overflow-hidden', 'flex', 'items-center', 'justify-center', 'font-sans', 'bg-gray-900')
   },
   destroyed() {
