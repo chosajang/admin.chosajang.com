@@ -207,7 +207,7 @@ export default {
   mounted() {
     apiUserInfo(1)
     .then(res => {
-      console.log(res.data)
+      console.log('dashboard =>', res.data)
     })
   }
 }

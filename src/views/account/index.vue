@@ -53,14 +53,14 @@
                     <td class="p-2">
                       <div class="flex items-center justify-center">
                         <div class="mr-2">
-                          <img :src="'https://static2.isidae.com/'+company.damdang_profile" class="w-10 rounded-full" onerror="this.src='/assets/images/user.png'" />
+                          <img :src="imgUrl+company.profile_file_path" class="w-10 rounded-full" onerror="this.src='/assets/images/user.png'" />
                         </div>
                         {{company.damdang_admin_name}}
                       </div>
                     </td>
                     <td class="p-2">
                       <div class="flex items-center justify-center">
-                        <img v-for="(admin, adminIdx) in company.sd_company_admin_links" :key="adminIdx" :src="'https://static2.isidae.com/'+admin.profile" onerror="this.src='/assets/images/user.png'" class="w-8 h-8 rounded-full border-gray-200 border transform hover:scale-125"/>
+                        <img v-for="(admin, adminIdx) in company.sd_company_admin_links" :key="adminIdx" :src="imgUrl+admin.profile_file_path" onerror="this.src='/assets/images/user.png'" class="w-8 h-8 rounded-full border-gray-200 border transform hover:scale-125"/>
                       </div>
                     </td>
                     <td class="p-2">
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { apiCompanyList } from '@/api'
+import { apiUserList } from '@/api'
 
 export default {
   name: 'companyList',
@@ -120,7 +120,8 @@ export default {
         itemsPages:0,       //현재 페이지 넘버
         resultCount:0       //총 페이지
       },
-      searchStx:""
+      searchStx:"",
+      imgUrl: process.env.STATIC_URL
     }
   },
   methods: {
@@ -174,7 +175,7 @@ export default {
     }
   },
   created() {
-    apiCompanyList(this.$axios)
+    apiUserList(this.$axios)
     .then(res => {
       const apiData = res.data
       if( apiData.result ){

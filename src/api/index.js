@@ -28,7 +28,7 @@ instance.interceptors.response.use(
 )
 
 function apiUserInfo(user_seq) {
-  return instance.get(`/users/${user_seq}`)
+  return instance.get(`/api/users/${user_seq}`)
 }
 
 function apiLogin (id, password) {
@@ -42,32 +42,10 @@ function apiDashboard () {
   return instance.get('/solution/company/companyList')
 }
 
-function apiCompanyList () {
+function apiUserList () {
   //let options = apiCallSet('/solution/company/companyList', 'GET')
   //return axiosObj(options)
-  return instance.get('/solution/company/companyList')
-}
-
-function apiCompanyInfo(company_seq){
-  //let options = apiCallSet('/solution/company/companyList/'+company_seq, 'GET');
-  //return axiosObj(options);
-  return instance.get('/solution/company/companyList/'+company_seq)
-}
-
-function apicompanyModify(company_data){
-  let form = new FormData();
-  form.append('_method', 'PUT');
-  form.append('company_data', JSON.stringify(company_data));
-  return instance.post('/solution/company/modify', form);
-}
-
-function apiCompanyRegister(company_data, admin_data){
-  //data.company_data   = JSON.stringify(company_data);
-  let data = {
-    'company_data'  :  JSON.stringify(company_data),
-    'admin_data'    :  JSON.stringify(admin_data)
-  }
-  return instance.post('/solution/company/register', data);
+  return instance.get('/api/users')
 }
 
 
@@ -75,8 +53,5 @@ export {
   apiUserInfo,
   apiLogin,
   apiDashboard,
-  apiCompanyList,
-  apiCompanyInfo,
-  apicompanyModify,
-  apiCompanyRegister
+  apiUserList,
 }

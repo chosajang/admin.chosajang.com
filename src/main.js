@@ -10,6 +10,7 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import AxiosPlugin from 'vue-axios-cors'
 import store from './store/index.js'
+import VueJwtDecode from 'vue-jwt-decode'
 
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ Vue.use(Meta)
 Vue.use(vClickOutside)
 Vue.use(VueSweetalert2)
 Vue.use(AxiosPlugin)
+Vue.use(VueJwtDecode)
 
 Vue.prototype.$EventBus = new Vue()
 

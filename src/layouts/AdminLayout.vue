@@ -25,6 +25,8 @@ export default {
   },
   created() {
     this.userInfo = this.$store.getters.getUserInfo
+    let jwtPayLoad = this.$jwtDec.decode( this.userInfo.access_token )
+    console.log('decodeValue => ', jwtPayLoad)
   },
   mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
