@@ -5,11 +5,20 @@ import bus from '@/utils/bus.js'
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_URL
 })
+instance.authCheck = true
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `${ store.getters.getUserInfo.token_type } ${ store.getters.getUserInfo.access_token }`
-    return config
+    /**
+     * 인증키가 필요한 API 인지 판단하여, 인증키가 없는 경우 강제 로그아웃을 진행
+     */
+    if( instance.authCheck && store.getters.getUserInfo.access_token == undefined ) {
+      bus.$emit('forceLogout')
+      return false
+    } else {
+      config.headers.Authorization = `${ store.getters.getUserInfo.token_type } ${ store.getters.getUserInfo.access_token }`
+      return config
+    }
   },
   (error) => {
     return Promise.reject(error)
@@ -22,6 +31,10 @@ instance.interceptors.response.use(
     return response
   },
   (error) => {
+    if( error.response.status == 401 ) {
+      bus.$emit('forceLogout')
+      return false
+    }
     bus.$emit('end:spinner')
     return Promise.reject(error)
   }
@@ -32,26 +45,21 @@ function apiUserInfo(user_seq) {
 }
 
 function apiLogin (id, password) {
+  instance.authCheck = false
   let form = new FormData()
   form.append('id', id)
   form.append('password', password)
   return instance.post('/api/login', form)
 }
 
-function apiDashboard () {
-  return instance.get('/solution/company/companyList')
-}
-
 function apiUserList () {
-  //let options = apiCallSet('/solution/company/companyList', 'GET')
-  //return axiosObj(options)
+  console.log('apiUserList Call')
   return instance.get('/api/users')
 }
 
 
 export {
-  apiUserInfo,
   apiLogin,
-  apiDashboard,
+  apiUserInfo,
   apiUserList,
 }
