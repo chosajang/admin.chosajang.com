@@ -2,7 +2,7 @@
   <aside v-show="isSidebar" v-click-outside="sideBarClose" class="shadow-md bg-gray-700 text-gray-200 text-sm items-center md:block left-0 fixed top-16 bottom-0 overflow-y-auto flex-row flex-no-wrap overflow-hidden w-52 z-10">
     <!--// Profile Info -->
     <div class="hidden md:flex flex-row items-center py-2 bg-gray-900">
-      <div class="flex-none w-14 h-14 ml-2"><img src="/assets/images/user.png" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
+      <div class="flex-none w-14 h-14 ml-2"><img :src="userInfo.profile_image_url" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
       <div class="flex-col space-y-1 pl-2 w-full h-14 justify-content items-center">
         <div class="mt-2 whitespace-nowrap text-sm">{{ userInfo.name }}</div>
         <div class="text-xs whitespace-nowrap">{{ userInfo.nickname }}</div>

@@ -15,7 +15,7 @@
     <div class="flex flex-none items-center px-4 z-11">
       <div v-on:click="isPersonalMenu = !isPersonalMenu, isPersonalMenuException = true" v-click-outside="btnPersonalMenuOutSide" class="text-gray-200 cursor-pointer">
         <!-- <i class="fas fa-user text-2xl"></i> -->
-        <div class="flex-none w-8 h-8"><img src="/assets/images/user.png" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
+        <div class="flex-none w-8 h-8"><img :src="userInfo.profile_image_url" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>
       </div>
       <div v-show="isPersonalMenu" v-click-outside="personalMenuClose" class="fixed top-14 right-2 w-40 rounded-sm bg-white z-20 border border-top-none border-solid border-gray-300">
         <ul class="w-full text-sm select-none">
