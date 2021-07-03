@@ -8,6 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
+    
     config.headers.Authorization = `${ store.getters.getUserInfo.token_type } ${ store.getters.getUserInfo.access_token }`
     return config
   },
