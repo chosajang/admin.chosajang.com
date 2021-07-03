@@ -24,9 +24,7 @@ export default {
     Sidebar
   },
   created() {
-    this.userInfo = this.$store.getters.getUserInfo
-    let jwtPayLoad = this.$jwtDec.decode( this.userInfo.access_token )
-    console.log('decodeValue => ', jwtPayLoad)
+    this.userInfo = this.$store.getters.getUserInfo.userInfo
   },
   mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
