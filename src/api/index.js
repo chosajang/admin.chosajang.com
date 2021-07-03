@@ -53,7 +53,6 @@ function apiLogin (id, password) {
 }
 
 function apiUserList () {
-  console.log('apiUserList Call')
   return instance.get('/api/users')
 }
 
