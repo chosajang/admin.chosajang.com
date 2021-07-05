@@ -2,7 +2,7 @@
   <div>
     <admin-header></admin-header>
     <main class="w-full">
-      <sidebar></sidebar>
+      <sidebar ref="sidebar"></sidebar>
       <slot></slot>
     </main>
   </div>
@@ -28,6 +28,9 @@ export default {
   },
   mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
+  },
+  updated() {
+    this.$refs.sidebar.menuFocus()
   },
   destroyed() {
     document.body.classList.remove('bg-gray-50', 'font-sans')
