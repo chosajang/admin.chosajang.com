@@ -6,15 +6,15 @@
       <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/company" class="text-gray-600 hover:text-blue-700 mx-2">기업 관리</router-link></li>
+            <li class="breadcrumb-item text-gray-600"><router-link to="/company" class="text-gray-600 hover:text-blue-700 mx-2">계정 관리</router-link></li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active text-blue-700 hover:text-blue-700 mx-2" aria-current="page">관리자 정보 조회</li> 
+            <li class="breadcrumb-item active text-blue-700 hover:text-blue-700 mx-2" aria-current="page">계정 정보 조회</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->
 
       <!-- Page Title -->
-        <div class="border-b mb-4"><p class="text-2xl font-bold">관리자 정보 조회</p></div>
+        <div class="border-b mb-4"><p class="text-2xl font-bold">계정 정보 조회</p></div>
         
         <!--// Card : ST -->
         <div class="my-4">
@@ -76,7 +76,7 @@
 
 <script>
 export default {
-  name: 'companyCreate',
+  name: 'userRead',
   data(){
     return {
       selectCompanyStatus: 1,

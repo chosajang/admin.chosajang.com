@@ -5,10 +5,9 @@ import bus from '../utils/bus'
 
 import LoginView from '../views/login/index.vue'
 import DashboardView from '../views/dashboard/'
-import AccountListView from '../views/account/'
-import AccountCreateView from '../views/account/create'
-import AccountView from '../views/account/view'
-import AccountModifyView from '../views/account/modify'
+import UserListView from '../views/users/'
+import UserCreateView from '../views/users/create'
+import UserReadView from '../views/users/view'
 
 Vue.use(VueRouter)
 
@@ -49,39 +48,30 @@ const routes = [
     beforeEnter: requireAuth()
   },
   {
-    path: '/account',
-    name: 'accountList',
+    path: '/users',
+    name: 'userList',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountListView,
+    component: UserListView,
     beforeEnter: requireAuth()
   },
   {
-    path: '/account/create',
-    name: 'accountCreate',
+    path: '/users/create',
+    name: 'userCreate',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountCreateView,
+    component: UserCreateView,
     beforeEnter: requireAuth()
   },
   {
-    path: '/account/:seq',
-    name: 'accountView',
+    path: '/users/:seq',
+    name: 'userRead',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountView,
-    beforeEnter: requireAuth()
-  },
-  {
-    path: '/account/modify/:seq',
-    name: 'accountModifyView',
-    meta: {
-      layout: 'adminLayout'
-    },
-    component: AccountModifyView,
+    component: UserReadView,
     beforeEnter: requireAuth()
   },
   { /* 404 error 방지 */
