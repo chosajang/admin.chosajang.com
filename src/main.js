@@ -11,6 +11,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import AxiosPlugin from 'vue-axios-cors'
 import store from './store/index.js'
 import VueJwtDecode from 'vue-jwt-decode'
+import Paginate from 'vuejs-paginate';
 
 Vue.config.productionTip = false
 
@@ -20,6 +21,7 @@ Vue.use(vClickOutside)
 Vue.use(VueSweetalert2)
 Vue.use(AxiosPlugin)
 Vue.use(VueJwtDecode)
+Vue.component('paginate', Paginate);
 
 Vue.prototype.$EventBus = new Vue()
 
