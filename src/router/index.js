@@ -16,9 +16,8 @@ const requireAuth = () => (to, from, next) => {
   if( to.meta.pageLoader ){
     bus.$emit('start:spinner')
   }
-  const userInfo = store.getters.getUserInfo
-  
-  if( userInfo.access_token === '' ) {
+
+  if( store.getters.getUserInfo.access_token == undefined ) {
     return next('/login')
   } else {
     return next()
