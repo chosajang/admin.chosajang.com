@@ -93,7 +93,7 @@ export default {
     },
 
     /**
-     * 사이드마 메뉴 포커스 인/아웃
+     * 사이드바 메뉴 포커스 인/아웃
      */
     menuFocus() {
       const to = this.$route
@@ -105,8 +105,11 @@ export default {
         if( item == uri[1] ) {
           /**
            * 하위 메뉴 확인
-           * - 상위 메뉴 : 열린 스타일 적용
-           * - 하위 메뉴 : 포커스 스타일 적용
+           * - 있는 경우,
+           *   > 상위 메뉴 : 열린 스타일 적용
+           *   > 하위 메뉴 : 포커스 스타일 적용
+           * - 없는 경우,
+           *   > 상위 메뉴 : 포커스 스타일 적용
            */
           if( Object.prototype.hasOwnProperty.call(menuObj, 'subMenu') ) {
             menuObj.style = {
