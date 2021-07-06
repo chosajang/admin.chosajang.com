@@ -30,7 +30,7 @@
                   <router-link to="/admin/create" class="rounded flex shadow bg-blue-500 px-6 py-1 text-white hover:bg-blue-600">관리자 등록</router-link>
                 </div>
               </div>
-              <div class="flex flex-row grid grid-cols-6 my-2 items-baseline">
+              <div class="flex flex-row grid grid-cols-1 md:grid-cols-3 my-2 items-baseline">
                 <input type="text" class="placeholder-gray-400 rounded w-full py-1 px-4 text-base font-light border border-gray-400" v-model="search" name="search_word" placeholder="관리자명 검색"/>
                 <!-- <input type="button" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-blue-600" value="검색"/> -->
               </div><!--// Table Title : ED -->
@@ -39,7 +39,7 @@
                   <tr class="text-sm text-gray-600 bg-gray-200 rounded">
                     <th class="p-2 rounded-tl rounded-bl"></th>
                     <th class="p-2">프로필 사진</th>
-                    <th class="p-2">관리자 정보</th>
+                    <th class="p-2">회원 정보</th>
                     <th class="p-2 hidden md:table-cell">이메일</th>
                     <th class="p-2 rounded-tr rounded-br hidden md:table-cell">가입일시</th>
                   </tr>
@@ -105,7 +105,7 @@ export default {
     },
   },
   created() {
-    apiUserList(this.$axios)
+    apiUserList()
     .then(res => {
       const apiData = res.data
       if( apiData.result ){

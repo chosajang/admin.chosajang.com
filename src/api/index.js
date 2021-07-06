@@ -33,7 +33,7 @@ instance.interceptors.response.use(
   (error) => {
     if( error.response.status == 401 ) {
       bus.$emit('forceLogout')
-      return false
+      return Promise.reject(error)
     }
     bus.$emit('end:spinner')
     return Promise.reject(error)

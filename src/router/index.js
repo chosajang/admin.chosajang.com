@@ -7,7 +7,8 @@ import LoginView from '../views/login/index.vue'
 import DashboardView from '../views/dashboard/'
 import UserListView from '../views/users/'
 import UserCreateView from '../views/users/create'
-import UserReadView from '../views/users/view'
+import UserReadView from '../views/users/read'
+import UserUpdateView from '../views/users/update'
 
 Vue.use(VueRouter)
 
@@ -66,12 +67,21 @@ const routes = [
     beforeEnter: requireAuth()
   },
   {
-    path: '/users/:seq',
+    path: '/users/:user_seq',
     name: 'userRead',
     meta: {
       layout: 'adminLayout'
     },
     component: UserReadView,
+    beforeEnter: requireAuth()
+  },
+  {
+    path: '/users/update/:user_seq',
+    name: 'userUpdate',
+    meta: {
+      layout: 'adminLayout'
+    },
+    component: UserUpdateView,
     beforeEnter: requireAuth()
   },
   { /* 404 error 방지 */

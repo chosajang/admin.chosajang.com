@@ -21,48 +21,48 @@
           <div class="flex flex-col rounded bg-white shadow-sm">
 
             <div class="flex flex-row grid grid-cols-6 m-4 items-baseline">
-              <div class="col-span-6 text-lg font-bold">{관리자 이름} 정보</div>
+              <div class="col-span-6 text-lg font-bold">{{userInfo.name}} 정보</div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
               <div class="md:col-start-2 md:col-span-2">
-                <img id="profile_image" class="w-32 h-32 rounded-full mx-auto" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe">
+                <img id="profile_image" class="w-32 h-32 rounded-full mx-auto" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
               <div class="md:col-start-2 md:col-span-2">
                 <label class="block text-sm text-gray-00" for="cus_name">아이디</label>
-                <p class="px-2 py-1 text-lg">Drizzt Do'Urden</p>
+                <p class="px-2 py-1 text-lg">{{userInfo.id}}</p>
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
               <div class="md:col-start-2 md:col-span-2">
                 <label class="block text-sm text-gray-00" for="cus_name">이름</label>
-                <p class="px-2 py-1 text-lg">드리즈트 두어덴</p>
+                <p class="px-2 py-1 text-lg">{{userInfo.name}}</p>
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
               <div class="md:col-start-2 md:col-span-2">
                 <label class="block text-sm text-gray-00" for="cus_name">이메일</label>
-                <p class="px-2 py-1 text-lg">test@test.com</p>
+                <p class="px-2 py-1 text-lg">{{userInfo.email}}</p>
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
               <div class="md:col-start-2 md:col-span-2">
                 <label class="block text-sm text-gray-00" for="cus_name">연락처</label>
-                <p class="px-2 py-1 text-lg">010-0000-0000</p>
+                <p class="px-2 py-1 text-lg">{{userInfo.tel}}</p>
               </div>
             </div>
 
             <div class="grid grid-cols-8 m-4">
               <div class="col-span-1 md:col-start-3 md:col-span-1">
-                <input type="button" v-on:click="removeRole" class="rounded bg-red-500 py-1 px-6 cursor-pointer text-white w-26 hover:bg-red-600" value="연결해제"/>
+                <!-- <input type="button" v-on:click="removeRole" class="rounded bg-red-500 py-1 px-6 cursor-pointer text-white w-26 hover:bg-red-600" value="연결해제"/> -->
               </div>
               <div class="col-span-7 md:col-span-3 grid items-center justify-items-end">
                 <div>
-                  <input type="button" v-on:click="adminList" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 hover:bg-gray-600" value="목록"/>
-                  <input type="button" v-on:click="adminModify" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
+                  <input type="button" v-on:click="userList" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 hover:bg-gray-600" value="목록"/>
+                  <input type="button" v-on:click="userUpdate" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
                 </div>
               </div>
             </div>
@@ -75,10 +75,14 @@
 </template>
 
 <script>
+import { apiUserInfo } from '@/api'
+
 export default {
   name: 'userRead',
   data(){
     return {
+      user_seq: this.$route.params.user_seq,
+      userInfo: [],
       selectCompanyStatus: 1,
       btnStatusApply:{
         style: {
@@ -93,35 +97,31 @@ export default {
   },
   methods: {
     
-    adminList() {
-      this.$router.push({ path: '/admin' })
+    userList() {
+      this.$router.push({ path: '/users' })
     },
 
-    removeRole() {
-      this.$swal({
-        title: '관리자 역할 연결해제',
-        html: '솔루션 관리자 역할을 해제 하시겠습니까?<p class="text-base text-red-500">*해제되면 관리자 목록에서도 사라집니다</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: `네, 해제합니다`,
-        confirmButtonColor: '#FF0000',
-        cancelButtonText: `아니오`,
-        reverseButtons: true
-      }).then((result) => {
-        if( result.isConfirmed ) {
-          /**
-           * todo : 기업 수정 API 호출
-           */
-          this.$swal('해제되었습니다','','success')
-          this.$router.push({ path: '/admin' });
-        }
-      })
-    },
-
-    adminModify() {
-      this.$router.push({ path: '/admin/modify/1' })
+    userUpdate() {
+      this.$router.push({ path: '/users/update/' + this.user_seq })
     }
 
+  },
+  created() {
+    apiUserInfo(this.user_seq)
+    .then(res => {
+      if( res.status == 200 ) {
+        const apiData = res.data
+        this.userInfo = apiData.data
+      } else {
+        this.$swal({
+          title: '정보 없음',
+          html: '요청한 회원정보가 존재하지 않습니다<br/>목록으로 돌아갑니다',
+          icon: 'error'
+        }).then(() => {
+          this.$router.push({ path: '/users' })
+        })
+      }
+    })
   }
 }
 </script>
