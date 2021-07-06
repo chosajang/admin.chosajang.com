@@ -40,8 +40,8 @@
                     <th class="p-2 rounded-tl rounded-bl"></th>
                     <th class="p-2">프로필 사진</th>
                     <th class="p-2">관리자 정보</th>
-                    <th class="p-2">이메일</th>
-                    <th class="p-2 rounded-tr rounded-br">가입일시</th>
+                    <th class="p-2 hidden md:table-cell">이메일</th>
+                    <th class="p-2 rounded-tr rounded-br hidden md:table-cell">가입일시</th>
                   </tr>
                 </thead>
                 <tbody class="text-sm font-bold text-gray-600 text-center">
@@ -51,13 +51,15 @@
                     <td class="p-2">
                       <div class="flex items-center justify-center">
                         <div class="mr-2">
-                          <img :src="item.profile_image_url" class="w-10 rounded-full" onerror="this.src='/assets/images/user.png'" />
+                          <img :src="item.profile_image_url" class="w-10 h-10 rounded-full" onerror="this.src='/assets/images/user.png'" />
                         </div>
                       </div>
                     </td>
-                    <td class="p-2"><router-link :to="'/users/'+item.user_seq" class="text-blue-500 hover:underline">{{item.name}}({{item.id}})</router-link></td>
-                    <td class="p-2">{{ item.email }}</td>
-                    <td class="p-2">{{ item.created_at }}</td>
+                    <td class="p-2">
+                      <router-link :to="'/users/'+item.user_seq" class="text-blue-500 hover:underline">{{item.name}}({{item.id}})</router-link>
+                    </td>
+                    <td class="p-2 hidden md:table-cell">{{ item.email }}</td>
+                    <td class="p-2 hidden md:table-cell">{{ item.created_at }}</td>
                   </tr>
 
                 </tbody>
@@ -139,10 +141,10 @@ export default {
       return [...itemList]
     },
     pageCount () {
-      const listLeng = this.listFiltered.length
-      const listSize = this.pageSize
-      let page = Math.floor(listLeng / listSize)
-      if (listLeng % listSize > 0) {
+      const listLength = this.listFiltered.length
+      const pageSize = this.pageSize
+      let page = Math.floor(listLength / pageSize)
+      if (listLength % pageSize > 0) {
         page += 1
       }
       return page
