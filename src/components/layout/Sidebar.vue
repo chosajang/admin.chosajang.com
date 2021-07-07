@@ -13,6 +13,7 @@
       <li class="pt-4 py-2 pl-4"><p class="text-xs font-bold text-gray-300">기본 메뉴</p></li>
       <router-link to="/dashboard"><li :class="menu.dashboard.style" class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-columns mr-4"></i>대시보드</li></router-link>
       <router-link to="/users"><li :class="menu.users.style" class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-users-cog mr-4"></i>계정 관리</li></router-link>
+      <router-link to="/articles"><li :class="menu.articles.style" class="py-3 pl-4 cursor-pointer hover:bg-gray-600 border-l-4 border-transparent hover:border-blue-500"><i class="fas fa-feather-alt mr-4"></i>게시물 관리</li></router-link>
     </ul>
     <!--// Left Menu : ED -->
   </aside>

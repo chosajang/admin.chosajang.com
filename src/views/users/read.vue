@@ -6,9 +6,13 @@
       <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/company" class="text-gray-600 hover:text-blue-700 mx-2">계정 관리</router-link></li>
+            <li class="breadcrumb-item text-gray-600"><router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">계정 관리</router-link></li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active text-blue-700 hover:text-blue-700 mx-2" aria-current="page">계정 정보 조회</li> 
+            <li class="breadcrumb-item active font-medium text-gray-600">
+              <router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
+            </li> 
+            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
+            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">조회</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->

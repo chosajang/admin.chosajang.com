@@ -6,9 +6,17 @@
       <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/admin" class="text-gray-600 hover:text-blue-700 mx-2">계정 관리</router-link></li>
+            <li class="breadcrumb-item text-gray-600"><router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">계정 관리</router-link></li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active text-blue-700 hover:text-blue-700 mx-2" aria-current="page">계정 정보 수정</li>
+            <li class="breadcrumb-item active font-medium text-gray-600">
+              <router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
+            </li>
+            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
+            <li class="breadcrumb-item active font-medium text-gray-600">
+              <router-link :to="'/users/' + user_seq" class="font-medium text-blue-500 hover:underline mx-2">조회</router-link>
+            </li>
+            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
+            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">정보 수정</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->
@@ -32,7 +40,7 @@
               <!--// Form Title : ED -->
 
               <!--// Form Body : ST -->
-              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
+              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4 pb-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <div class="mx-auto w-32 h-32 cursor-pointer relative">
                     <img ref="profile_img" class="absolute inset-0 z-0 rounded-full" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
@@ -41,10 +49,14 @@
                     </div>
                     <input @change="fileUpload" type="file" class="hidden" ref="fileInput">
                   </div>
+                  <div class="mx-auto w-60 mt-4">
+                    <p class="text-xs text-gray-400 text-center">정사각형 이미지로 올려주세요</p></div>
                 </div>
               </div>
               <!--// Form Body : ED -->
+            </div>
 
+            <div class="flex flex-col rounded min-w-full bg-white shadow-sm mt-4">
               <!--// Form Title : ST -->
               <div class="flex flex-row grid grid-cols-6 m-4 items-baseline">
                 <div class="col-span-6 text-lg font-bold">
@@ -108,7 +120,7 @@
 </template>
 
 <script>
-import { apiUserInfo } from '@/api'
+import { apiUserInfo, apiUserProfileImage } from '@/api'
 
 export default {
   name: 'userUpdate',
@@ -171,13 +183,17 @@ export default {
       let url = input.value;
       let ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();        
       if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")){
-        this.profile = file;
-        let reader = new FileReader();
-        let self = this;
+        let reader = new FileReader()
+        let self = this
         reader.onload = function (e) {
-          self.$refs.profile_img.src = e.target.result;
+          self.$refs.profile_img.src = e.target.result
         }
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[0])
+
+        apiUserProfileImage(this.user_seq, file)
+        .then(res => {
+          console.log(res)
+        })
        } else {
         this.$swal({
         title: '파일 오류',
@@ -188,7 +204,6 @@ export default {
         reverseButtons: true
         })
        }
-       this.profile = file;
     },
 
   },

@@ -56,9 +56,22 @@ function apiUserList () {
   return instance.get('/api/users')
 }
 
+function apiUserProfileImage (user_seq, fileObj) {
+  let form = new FormData();
+  form.append('_method', 'PATCH')
+  form.append('user_seq', user_seq)
+  form.append('file', fileObj)
+  return instance.post('/api/users/profileImage', form)
+}
+
+function apiArticleList() {
+  return instance.get('/api/articles')
+}
 
 export {
   apiLogin,
   apiUserInfo,
   apiUserList,
+  apiUserProfileImage,
+  apiArticleList
 }
