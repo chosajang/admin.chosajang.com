@@ -112,10 +112,12 @@ export default {
         }).catch(err => {
           btnSpinner(this.btnLogin,false,'로그인')
           this.$swal({
-              title: '로그인 실패',
-              text: err.response.data.error,
-              icon: 'error'
-            })
+            title: '로그인 실패',
+            text: err.response.data.error,
+            icon: 'error'
+          }).then(() => {
+            this.loginForm.password.value = ''
+          })
         })
       }
       

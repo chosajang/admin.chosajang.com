@@ -32,7 +32,7 @@ export default {
     forceLogout() {
       this.$swal({
         title: '인증실패',
-        html: 'API 인증키가 만효되었거나 유효하지 않습니다.<br/>자동로그아웃 되니 다시 로그인하여 사용해주세요'
+        html: 'API 인증키가 만료되었거나 유효하지 않습니다.<br/>자동로그아웃 되니 다시 로그인하여 사용해주세요'
       })
       .then(() => {
         this.$store.commit('SET_USERINFO', '')

@@ -5,10 +5,12 @@ import bus from '../utils/bus'
 
 import LoginView from '../views/login/index.vue'
 import DashboardView from '../views/dashboard/'
-import AccountListView from '../views/account/'
-import AccountCreateView from '../views/account/create'
-import AccountView from '../views/account/view'
-import AccountModifyView from '../views/account/modify'
+import UserListView from '../views/users/'
+import UserCreateView from '../views/users/create'
+import UserReadView from '../views/users/read'
+import UserUpdateView from '../views/users/update'
+import ArticleListView from '../views/articles/'
+import ArticleCreateView from '../views/articles/create'
 
 Vue.use(VueRouter)
 
@@ -16,9 +18,8 @@ const requireAuth = () => (to, from, next) => {
   if( to.meta.pageLoader ){
     bus.$emit('start:spinner')
   }
-  const userInfo = store.getters.getUserInfo
-  
-  if( userInfo.access_token === '' ) {
+
+  if( store.getters.getUserInfo.access_token == undefined ) {
     return next('/login')
   } else {
     return next()
@@ -50,39 +51,57 @@ const routes = [
     beforeEnter: requireAuth()
   },
   {
-    path: '/account',
-    name: 'accountList',
+    path: '/users',
+    name: 'userList',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountListView,
+    component: UserListView,
     beforeEnter: requireAuth()
   },
   {
-    path: '/account/create',
-    name: 'accountCreate',
+    path: '/users/create',
+    name: 'userCreate',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountCreateView,
+    component: UserCreateView,
     beforeEnter: requireAuth()
   },
   {
-    path: '/account/:seq',
-    name: 'accountView',
+    path: '/users/:user_seq',
+    name: 'userRead',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountView,
+    component: UserReadView,
     beforeEnter: requireAuth()
   },
   {
-    path: '/account/modify/:seq',
-    name: 'accountModifyView',
+    path: '/users/update/:user_seq',
+    name: 'userUpdate',
     meta: {
       layout: 'adminLayout'
     },
-    component: AccountModifyView,
+    component: UserUpdateView,
+    beforeEnter: requireAuth()
+  },
+  {
+    path: '/articles',
+    name: 'articleList',
+    meta: {
+      layout: 'adminLayout'
+    },
+    component: ArticleListView,
+    beforeEnter: requireAuth()
+  },
+  {
+    path: '/articles/create',
+    name: 'articleCreate',
+    meta: {
+      layout: 'adminLayout'
+    },
+    component: ArticleCreateView,
     beforeEnter: requireAuth()
   },
   { /* 404 error 방지 */
