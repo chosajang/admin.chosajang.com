@@ -27,7 +27,7 @@
                   게시물 목록
                 </div>
                 <div class="grid col-span-3 text-sm justify-items-end leading-6">
-                  <!-- <router-link to="/articles/create" class="rounded flex shadow bg-blue-500 px-6 py-1 text-white hover:bg-blue-600">글 작성하기</router-link> -->
+                  <router-link to="/articles/create" class="rounded flex shadow bg-blue-500 px-6 py-1 text-white hover:bg-blue-600">글 작성하기</router-link>
                 </div>
               </div>
               <div class="flex flex-row grid grid-cols-1 md:grid-cols-3 my-2 items-baseline">
