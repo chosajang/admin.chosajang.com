@@ -23,7 +23,7 @@ phases:
       - ls -al
       # - echo Build completed on `date`
       # - echo Distributing to S3...
-      # - aws s3 cp --recursive dist/ s3://admin.chosajang.com
+      - aws s3 cp --recursive dist/ s3://test.chosajang.com
 artifacts:
   files:
     - './**/*'
