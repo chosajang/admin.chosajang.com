@@ -55,15 +55,14 @@
               <div class="grid grid-cols-1 items-center justify-center m-4">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
-                  <div class="h-80">
-                    <editor
-                      ref="toastuiEditor"
-                      :options="editorOptions"
-                      height="100%"
-                      initialEditType="markdown"
-                      previewStyle="tab"
-                    />
-                  </div>
+                  <ckeditor 
+                    :editor="editor"
+                    v-model="editorData"
+                    :config="editorConfig" 
+                    @drop.prevent
+                    @dragover.prevent
+                    class="w-full text-gray-700 bg-gray-100 rounded border border-gray-100" id="recruit-content" name="recruit-content" required="true" placeholder="채용 내용" aria-label="Name" >
+                  </ckeditor>
                 </div>
               </div>
 
@@ -85,20 +84,18 @@
 </template>
 
 <script>
-import '@toast-ui/editor/dist/toastui-editor.css'
-import '@toast-ui/editor/dist/i18n/ko-kr'
-import { Editor } from '@toast-ui/vue-editor'
-import { apiEditorImageUpload } from '@/api'
+// import { apiEditorImageUpload } from '@/api'
+import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
 
 export default {
   name: 'userUpdate',
-  components: {
-    editor: Editor
-  },
   data() {
     return {
       user_seq: this.$route.params.user_seq,
       userInfo: [],
+      editor: BalloonEditor,
+      editorData: '',
+      articleContent: '',
       post_yn: false,
       toggleBtn : {
         height: 28,
@@ -110,31 +107,14 @@ export default {
           unchecked: 'off'
         }
       },
-      editorOptions: {
-        language: 'ko',
-        minHeight: '300px',
-        hooks: {
-          addImageBlobHook: function (blob, callback) {
-            const formData = new FormData();
-            formData.append('file', blob);
-            // 파일 업로드 API
-            apiEditorImageUpload(formData)
-              .then(res => {
-                const resData = res.data[0]
-                console.log(resData)
-                if (resData.result) {
-                  callback(resData.data.file_url, resData.data.logical_name);
-                } else {
-                  console.log(resData.messages)
-                }
-              })
-              .catch(error => {
-                console.log(error);
-              });
-            return false;
-          }
-        }
+
+      editorConfig: { 
+        filebrowserUploadUrl : 'https://api-laravel.chosajang.com/api/articles/editorUpload',
+        filebrowserImageUploadUrl : 'https://api-laravel.chosajang.com/api/articles/editorUpload?type=Images',
+        filebrowserUploadMethod : 'post',
+        height : 700
       }
+
     }
   },
   methods: {

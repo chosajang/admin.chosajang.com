@@ -135,7 +135,7 @@ export default {
     modifyCancel() {
       this.$swal({
         title: '수정 취소',
-        text: '관리자 정보 수정을 취소하시겠습니까?',
+        text: '회원 정보 수정을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: `네, 취소합니다`,
@@ -153,7 +153,7 @@ export default {
     modifyApply() {
       this.$swal({
         title: '정보 수정',
-        text: '관리자 정보를 수정하시겠습니까?',
+        text: '회원 정보를 수정하시겠습니까?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: `네, 수정합니다`,
@@ -162,11 +162,11 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           /**
-           * todo : 등록 API 호출
+           * todo : 수정 API 호출
            */
           this.$swal('수정되었습니다', '', 'success')
           .then(() => {
-            this.$router.push({ path: '/admin/1' })
+            this.$router.push({ path: `/users/${this.user_seq}` })
           })
         }
       })

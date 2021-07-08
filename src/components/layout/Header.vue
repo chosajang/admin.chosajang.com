@@ -12,7 +12,7 @@
     </router-link>
     </div>
     <!--// personal menu -->
-    <div class="flex flex-none items-center px-4 z-11">
+    <div class="flex flex-none items-center px-4 z-auto">
       <div v-on:click="isPersonalMenu = !isPersonalMenu, isPersonalMenuException = true" v-click-outside="btnPersonalMenuOutSide" class="text-gray-200 cursor-pointer">
         <!-- <i class="fas fa-user text-2xl"></i> -->
         <div class="flex-none w-8 h-8 bg-white rounded-full"><img :src="userInfo.profile_image_url" onerror='this.src="/assets/images/user.png"' alt="profile" /></div>

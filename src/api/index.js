@@ -68,10 +68,15 @@ function apiArticleList() {
   return instance.get('/api/articles')
 }
 
+function apiEditorImageUpload(formData) {
+  return instance.post('/api/articles/editorUpload', formData)
+}
+
 export {
   apiLogin,
   apiUserInfo,
   apiUserList,
   apiUserProfileImage,
-  apiArticleList
+  apiArticleList,
+  apiEditorImageUpload
 }
