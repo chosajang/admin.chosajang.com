@@ -21,10 +21,10 @@ phases:
       # 빌드 결과물 용량 최적화
       - rm -rf node_modules .git
       - ls -al
-      - echo Build completed on `date`
-      - echo Distributing to S3...
-      - aws s3 cp --recursive dist/ s3://admin.chosajang.com
-# artifacts:
-#   files:
-#     - './**/*'
-#   base-directory: dist
+      # - echo Build completed on `date`
+      # - echo Distributing to S3...
+      # - aws s3 cp --recursive dist/ s3://admin.chosajang.com
+artifacts:
+  files:
+    - './**/*'
+  base-directory: dist
