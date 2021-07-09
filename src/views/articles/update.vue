@@ -37,31 +37,32 @@
 
               <!--// Form Body : ST -->
               <div class="grid grid-cols-4 gap-4 items-center justify-center m-4">
-                <div class="col-span-4">
-                  <label class="block text-sm" for="title">글 제목</label>
-                  <input class="w-full px-5 py-1 text-gray-700 bg-gray-100 rounded" id="title" name="title" type="text" required="true" placeholder="글 제목">
+                <div class="col-span-4 md:col-span-3">
+                  <label class="block text-sm mb-1" for="title">제목</label>
+                  <input class="w-full px-5 py-1 text-2xl text-gray-700 outline-none border-transparent border-b-2 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
                 </div>
-                <div class="col-span-4">
-                  <label class="block text-sm">게시여부</label>
+                <div class="col-span-4 md:col-span-1">
+                  <label class="block text-sm mb-1">게시여부</label>
                   <toggle-button v-model="post_yn"
-                      :labels="toggleBtn.labels"
-                      :height="toggleBtn.height"
-                      :width="toggleBtn.width"
-                      :font-size="toggleBtn.fontSize"
-                      :color="toggleBtn.color" />
+                    :labels="toggleBtn.labels"
+                    :height="toggleBtn.height"
+                    :width="toggleBtn.width"
+                    :font-size="toggleBtn.fontSize"
+                    :color="toggleBtn.color" />
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 items-center justify-center m-4">
+              <div class="grid grid-cols-1 items-center justify-center mx-4">
                 <div class="col-span-1">
-                  <label class="block text-sm" for="cus_name">내용</label>
+                  <label class="block text-sm mb-1" for="cus_name">내용</label>
                   <ckeditor 
                     :editor="editor"
                     v-model="editorData"
                     :config="editorConfig" 
                     @drop.prevent
                     @dragover.prevent
-                    class="w-full text-gray-700 bg-gray-100 rounded border border-gray-100" id="recruit-content" name="recruit-content" required="true" placeholder="채용 내용" aria-label="Name" >
+                    tag-name="textarea"
+                    class="w-full rounded resize-y" >
                   </ckeditor>
                 </div>
               </div>
@@ -85,16 +86,42 @@
 
 <script>
 // import { apiEditorImageUpload } from '@/api'
-import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ko'
+import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat'
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment'
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
+import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import Code from '@ckeditor/ckeditor5-basic-styles/src/code'
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
+import Font from '@ckeditor/ckeditor5-font/src/font'
+import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight'
+import Heading from '@ckeditor/ckeditor5-heading/src/heading'
+import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui'
+import Image from '@ckeditor/ckeditor5-image/src/image'
+import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption'
+import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle'
+import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar'
+import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload'
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize'
+import BlockToolbar from '@ckeditor/ckeditor5-ui/src/toolbar/block/blocktoolbar'
+import Indent from '@ckeditor/ckeditor5-indent/src/indent'
+import Link from '@ckeditor/ckeditor5-link/src/link'
+import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock'
+import List from '@ckeditor/ckeditor5-list/src/list'
+import Table from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 
 export default {
-  name: 'userUpdate',
+  name: 'articleUpdate',
   data() {
     return {
       user_seq: this.$route.params.user_seq,
       userInfo: [],
-      editor: BalloonEditor,
-      editorData: '',
+      
       articleContent: '',
       post_yn: false,
       toggleBtn : {
@@ -108,13 +135,89 @@ export default {
         }
       },
 
+      editor: ClassicEditor,
+      editorData: '',
       editorConfig: { 
-        filebrowserUploadUrl : 'https://api-laravel.chosajang.com/api/articles/editorUpload',
-        filebrowserImageUploadUrl : 'https://api-laravel.chosajang.com/api/articles/editorUpload?type=Images',
-        filebrowserUploadMethod : 'post',
-        height : 700
+        language: 'ko',
+        height: '500px',
+        plugins: [
+          Autoformat,
+          Alignment,
+          EssentialsPlugin,
+          BoldPlugin,
+          LinkPlugin,
+          Paragraph,
+          ParagraphPlugin,
+          Code,
+          CodeBlock,
+          Font,
+          Highlight,
+          Heading,
+          HeadingButtonsUI,
+          Image,
+          ImageCaption,
+          ImageStyle,
+          ImageToolbar,
+          ImageUpload,
+          ImageResize,
+          BlockToolbar,
+          Indent,
+          IndentBlock,
+          Link,
+          List,
+          Table,
+          TableToolbar
+        ],
+        toolbar: {
+          items: [
+            'heading',
+            'paragraph',
+            'bold',
+            'link',
+            'highlight',
+            'alignment',
+            'imageUpload',
+            '|',
+            'indent',
+            'outdent',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'code',
+            'codeblock',
+            '|',
+            'fontSize',
+            'fontFamily',
+            'fontColor',
+            'fontBackgroundColor',
+            'insertTable',
+            '|',
+            'undo',
+            'redo',
+          ]
+        },
+        image: {
+          toolbar: [
+            "imageStyle:full",
+            "imageStyle:side",
+            "|",
+            "imageTextAlternative"
+          ]
+        },
+        table: {
+          contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"]
+        },
+        // blockToolbar: [
+        //   "heading1",
+        //   "heading2",
+        //   "heading3",
+        //   "|",
+        //   "bulletedList",
+        //   "numberedList",
+        //   "|",
+        //   "imageUpload"
+        // ],
       }
-
     }
   },
   methods: {
@@ -124,7 +227,7 @@ export default {
 
     createApply () {
       
-    }
+    },
   },
   mounted() {
     // const ui = this.$refs.toastuiEditor.invoke('getUI')

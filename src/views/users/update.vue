@@ -50,7 +50,7 @@
                     <input @change="fileUpload" type="file" class="hidden" ref="fileInput">
                   </div>
                   <div class="mx-auto w-60 mt-4">
-                    <p class="text-xs text-gray-400 text-center">정사각형 이미지로 올려주세요</p></div>
+                    <p class="text-xs text-gray-400 text-center">정사각형 비율의 이미지를 올려주세요</p></div>
                 </div>
               </div>
               <!--// Form Body : ED -->
@@ -68,38 +68,38 @@
               <!--// Form Body : ST -->
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">아이디</label>
-                  <input :value="userInfo.id" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" required="true" placeholder="아이디" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">아이디</label>
+                  <input :value="userInfo.id" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="아이디" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">이름</label>
-                  <input :value="userInfo.name" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" required="true" placeholder="이름" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">이름</label>
+                  <input :value="userInfo.name" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이름" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">이메일</label>
-                  <input :value="userInfo.email" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" required="true" placeholder="이메일" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">이메일</label>
+                  <input :value="userInfo.email" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이메일" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">연락처</label>
-                  <input :value="userInfo.tel" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" required="true" placeholder="연락처(000-0000-0000)" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">연락처</label>
+                  <input :value="userInfo.tel" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="연락처(000-0000-0000)" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">비밀번호</label>
-                  <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" required="true" placeholder="비밀번호" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">비밀번호</label>
+                  <input class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="비밀번호" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-00" for="cus_name">비밀번호 확인</label>
-                  <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" required="true" placeholder="비밀번호 확인" aria-label="Name">
+                  <label class="block text-sm text-gray-800" for="cus_name">비밀번호 확인</label>
+                  <input class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="비밀번호 확인" aria-label="Name">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-items-end m-4">
