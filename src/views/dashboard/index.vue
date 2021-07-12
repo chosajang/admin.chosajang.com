@@ -200,15 +200,15 @@
 </template>
 
 <script>
-import { apiUserInfo } from '@/api'
+// import { apiUserInfo } from '@/api'
 
 export default {
   name: 'dashboard',
   mounted() {
-    apiUserInfo(1)
-    .then(res => {
-      console.log('dashboard =>', res.data)
-    })
+    // apiUserInfo(1)
+    // .then(res => {
+    //   // console.log('dashboard =>', res.data)
+    // })
   }
 }
 </script>

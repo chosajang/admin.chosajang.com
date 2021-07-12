@@ -143,10 +143,7 @@ export default {
     pageCount () {
       const listLength = this.listFiltered.length
       const pageSize = this.pageSize
-      let page = Math.floor(listLength / pageSize)
-      if (listLength % pageSize > 0) {
-        page += 1
-      }
+      let page = Math.ceil(listLength / pageSize)
       return page
     },
   }

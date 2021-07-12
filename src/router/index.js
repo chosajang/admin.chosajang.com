@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import bus from '../utils/bus'
 
-import LoginView from '../views/login/index.vue'
+import LoginView from '../views/login/'
 import DashboardView from '../views/dashboard/'
 import UserListView from '../views/users/'
 import UserCreateView from '../views/users/create'
