@@ -93,8 +93,6 @@ import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment'
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
-import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import Font from '@ckeditor/ckeditor5-font/src/font'
@@ -146,8 +144,6 @@ export default {
           EssentialsPlugin,
           BoldPlugin,
           LinkPlugin,
-          Paragraph,
-          ParagraphPlugin,
           Code,
           CodeBlock,
           Font,
@@ -171,7 +167,6 @@ export default {
         toolbar: {
           items: [
             'heading',
-            'paragraph',
             'bold',
             'link',
             'highlight',
@@ -198,7 +193,6 @@ export default {
         },
         image: {
           toolbar: [
-            "imageStyle:full",
             "imageStyle:side",
             "|",
             "imageTextAlternative"
