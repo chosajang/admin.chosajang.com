@@ -37,18 +37,19 @@
 
               <!--// Form Body : ST -->
               <div class="grid grid-cols-4 gap-4 items-center justify-center m-4">
-                <div class="col-span-4">
-                  <label class="block text-sm" for="title">글 제목</label>
-                  <input class="w-full px-5 py-1 text-gray-700 bg-gray-100 rounded" id="title" name="title" type="text" required="true" placeholder="글 제목">
+                <div class="col-span-4 md:col-span-3">
+                  <label class="block text-sm mb-1" for="title">제목</label>
+                  <input class="w-full px-5 py-1 text-2xl text-gray-700 outline-none border-transparent border-b-2 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
                 </div>
-                <div class="col-span-4">
-                  <label class="block text-sm">게시여부</label>
+                <div class="col-span-4 md:col-span-1">
+                  <label class="block text-sm mb-1">게시여부</label>
                   <toggle-button v-model="post_yn"
-                      :labels="toggleBtn.labels"
-                      :height="toggleBtn.height"
-                      :width="toggleBtn.width"
-                      :font-size="toggleBtn.fontSize"
-                      :color="toggleBtn.color" />
+                    :labels="toggleBtn.labels"
+                    :height="toggleBtn.height"
+                    :width="toggleBtn.width"
+                    :font-size="toggleBtn.fontSize"
+                    :color="toggleBtn.color"
+                    class="my-2" />
                 </div>
               </div>
 
