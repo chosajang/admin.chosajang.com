@@ -72,6 +72,10 @@ function apiEditorImageUpload(formData) {
   return instance.post('/api/articles/editorUpload', formData)
 }
 
+function apiArticleCreate() {
+  return instance.post('/api/articles')
+}
+
 export {
   apiLogin,
   apiUserInfo,

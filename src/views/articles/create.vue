@@ -6,19 +6,16 @@
       <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">계정 관리</router-link></li>
+            <li class="breadcrumb-item text-gray-600"><router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">게시물 관리</router-link></li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
             <li class="breadcrumb-item active font-medium text-gray-600">
-              <router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
+              <router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
             </li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
             <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글쓰기</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->
-
-      <!-- Page Title -->
-      <div class="border-b mb-4"><p class="text-2xl font-bold">글쓰기</p></div>
       
       <!--// Card : ST -->
       <div class="my-4">
@@ -26,24 +23,17 @@
 
           <!--// Form : ST -->
           <div class="col-span-12">
-            <div class="flex flex-col rounded min-w-full bg-white shadow-sm mt-4">
-              <!--// Form Title : ST -->
-              <!-- <div class="flex flex-row grid grid-cols-6 m-4 items-baseline">
-                <div class="col-span-6 text-lg font-bold">
-                  글쓰기 폼
-                </div>
-              </div> -->
-              <!--// Form Title : ED -->
+            <div class="flex flex-col rounded min-w-full bg-white shadow-sm">
 
               <!--// Form Body : ST -->
               <div class="grid grid-cols-4 gap-4 items-center justify-center m-4">
                 <div class="col-span-4 md:col-span-3">
                   <label class="block text-sm mb-1" for="title">제목</label>
-                  <input class="w-full px-5 py-1 text-2xl text-gray-700 outline-none border-transparent border-b-2 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
+                  <input v-model="article.title" class="w-full px-5 py-1 text-2xl text-gray-700 outline-none border-transparent border-b-2 border-blue-100 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
                 </div>
                 <div class="col-span-4 md:col-span-1">
                   <label class="block text-sm mb-1">게시여부</label>
-                  <toggle-button v-model="post_yn"
+                  <toggle-button v-model="article.post_yn"
                     :labels="toggleBtn.labels"
                     :height="toggleBtn.height"
                     :width="toggleBtn.width"
@@ -53,16 +43,14 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 items-center justify-center m-4">
+              <div class="grid grid-cols-1 items-center justify-center m-4 z-0">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
-                  <div class="h-80">
+                  <div class="my-2 h-96">
                     <editor
                       ref="toastuiEditor"
                       :options="editorOptions"
-                      height="100%"
-                      initialEditType="markdown"
-                      previewStyle="tab"
+                      height="auto"
                     />
                   </div>
                 </div>
@@ -86,10 +74,15 @@
 </template>
 
 <script>
+import { apiEditorImageUpload } from '@/api'
+
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/ko-kr'
+import 'tui-color-picker/dist/tui-color-picker.css'
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css'
+
 import { Editor } from '@toast-ui/vue-editor'
-import { apiEditorImageUpload } from '@/api'
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
 
 export default {
   name: 'userUpdate',
@@ -98,8 +91,12 @@ export default {
   },
   data() {
     return {
-      user_seq: this.$route.params.user_seq,
-      userInfo: [],
+      // user_seq: this.$route.params.user_seq,
+      article: {
+        title: '',
+        content: '',
+        post_yn: false
+      },
       post_yn: false,
       toggleBtn : {
         height: 28,
@@ -113,20 +110,34 @@ export default {
       },
       editorOptions: {
         language: 'ko',
-        minHeight: '300px',
+        minHeight: '100%',
+        height: '100%',
+        previewStyle: 'vertical',
+        initialEditType: 'markdown',
+        placeholder: '여기에 글을 작성하세요',
+        toolbarItems: [
+          ['heading', 'bold', 'italic', 'strike'],
+          ['hr', 'quote'],
+          ['ul', 'ol', 'task'],
+          ['table', 'image', 'link'],
+          ['code', 'codeblock'],
+          ['scrollSync'],
+        ],
+        plugins: [
+          colorSyntax
+        ],
         hooks: {
           addImageBlobHook: function (blob, callback) {
-            const formData = new FormData();
-            formData.append('file', blob);
+            const FORMDATA = new FormData()
+            FORMDATA.append('file', blob)
             // 파일 업로드 API
-            apiEditorImageUpload(formData)
+            apiEditorImageUpload(FORMDATA)
               .then(res => {
-                const resData = res.data[0]
-                console.log(resData)
-                if (resData.result) {
-                  callback(resData.data.file_url, resData.data.logical_name);
+                const API_DATA = res.data[0]
+                if (API_DATA.result) {
+                  callback(API_DATA.data.file_url, API_DATA.data.logical_name);
                 } else {
-                  console.log(resData.messages)
+                  console.log(API_DATA.messages)
                 }
               })
               .catch(error => {
@@ -144,6 +155,11 @@ export default {
     },
 
     createApply () {
+      const FORMDATA = new FormData()
+      FORMDATA.append('title', this.article.title)
+      FORMDATA.append('contents', this.$refs.toastuiEditor.invoke('getMarkdown'))
+      FORMDATA.append('post_yn', this.article.post_yn == 'true' ? 'Y' : 'N')
+      FORMDATA.append('thumbnail_image', '')
       
     }
   },

@@ -52,7 +52,7 @@
                       <div class="flex items-center justify-center">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
-                            <img class="w-full h-full rounded-full" :src="item.user_image_url" alt="" />
+                            <img class="w-full h-full rounded-full" :src="item.user_image_url" alt="" onerror="this.src='/assets/images/user.png'" />
                           </div>
                           <div class="ml-3">
                             <p class="whitespace-no-wrap">{{item.user_name}}</p>

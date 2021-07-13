@@ -13,7 +13,6 @@ import store from './store/index.js'
 import VueJwtDecode from 'vue-jwt-decode'
 import Paginate from 'vuejs-paginate'
 import ToggleButton from 'vue-js-toggle-button'
-import CkEditor from '@ckeditor/ckeditor5-vue2'
 
 Vue.config.productionTip = false
 
@@ -24,7 +23,6 @@ Vue.use(VueSweetalert2)
 Vue.use(AxiosPlugin)
 Vue.use(VueJwtDecode)
 Vue.use(ToggleButton)
-Vue.use(CkEditor)
 Vue.component('paginate', Paginate);
 
 Vue.prototype.$EventBus = new Vue()
