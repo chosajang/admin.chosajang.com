@@ -3,49 +3,52 @@
     <div class="container m-auto p-4 md:p-6">
 
       <!--// Title -->
-      <div class="border-b mb-4"><p class="text-base font-bold">솔루션 관리 대시보드</p></div>
+      <div class="border-b mb-4"><p class="text-base font-bold">대시보드</p></div>
 
       <!--// Card 4 Style : ST -->
       <div class="my-4">
         <div class="grid grid-cols-12 gap-4"><!--// Card Col : ST -->
 
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
             <div class="flex flex-row bg-white shadow-sm rounded p-4">
               <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-md bg-blue-100 text-blue-500">
-                <img class="w-6 h-6" src="/assets/images/users.png"/>
+                <!-- <img class="w-6 h-6" src="/assets/images/users.png"/> -->
+                <i class="fas fa-users text-lg"></i>
               </div>
               <div class="flex flex-col flex-grow ml-4">
                 <div class="text-sm text-gray-500">회원 수</div>
-                <div class="font-bold text-lg">1,259</div>
+                <div class="font-bold text-lg">3</div>
               </div>
             </div>
           </div>
 
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
             <div class="flex flex-row bg-white shadow-sm rounded p-4">
               <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-md bg-blue-100 text-blue-500">
-                <img class="w-6 h-6" src="/assets/images/building.png"/>
+                <!-- <img class="w-6 h-6" src="/assets/images/building.png"/> -->
+                <i class="fas fa-feather-alt text-lg"></i>
               </div>
               <div class="flex flex-col flex-grow ml-4">
-                <div class="text-sm text-gray-500">기업 수</div>
-                <div class="font-bold text-lg">2</div>
+                <div class="text-sm text-gray-500">내가 쓴 글</div>
+                <div class="font-bold text-lg">11</div>
               </div>
             </div>
           </div>
 
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
             <div class="flex flex-row bg-white shadow-sm rounded p-4">
               <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-md bg-blue-100 text-blue-500">
-                <img class="w-6 h-6" src="/assets/images/tickets.png"/>
+                <!-- <img class="w-6 h-6" src="/assets/images/tickets.png"/> -->
+                <i class="fas fa-clock text-lg"></i>
               </div>
               <div class="flex flex-col flex-grow ml-4">
-                <div class="text-sm text-gray-500">판매 티켓 수</div>
-                <div class="font-bold text-lg">2,102</div>
+                <div class="text-sm text-gray-500">최근 작업일</div>
+                <div class="font-bold text-lg">2021-07-14</div>
               </div>
             </div>
           </div>
 
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
+          <!-- <div class="col-span-12 md:col-span-6 lg:col-span-3">
             <div class="flex flex-row bg-white shadow-sm rounded p-4">
               <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-md bg-blue-100 text-blue-500">
                 <img class="w-6 h-6" src="/assets/images/use_ticket.png"/>
@@ -55,7 +58,7 @@
                 <div class="font-bold text-lg">860</div>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div><!--// Card 4 Style : ED -->

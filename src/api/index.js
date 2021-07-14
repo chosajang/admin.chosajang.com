@@ -13,7 +13,7 @@ instance.interceptors.request.use(
      * 인증키가 필요한 API 인지 판단하여, 인증키가 없는 경우 강제 로그아웃을 진행
      */
     if( instance.authCheck && store.getters.getUserInfo.access_token == undefined ) {
-      bus.$emit('forceLogout')
+      bus.$emit('forceAlert', process.env.VUE_APP_AUTH_FAILURE)
       return false
     } else {
       config.headers.Authorization = `${ store.getters.getUserInfo.token_type } ${ store.getters.getUserInfo.access_token }`
@@ -31,11 +31,14 @@ instance.interceptors.response.use(
     return response
   },
   (error) => {
-    if( error.response.status == 401 ) {
-      bus.$emit('forceLogout')
-      return Promise.reject(error)
-    }
     bus.$emit('end:spinner')
+    if( error.response !== undefined ) {
+      if( error.response.status == 401 ) {
+        bus.$emit('forceAlert', process.env.VUE_APP_AUTH_FAILURE)
+      }
+    } else {
+      bus.$emit('forceAlert', process.env.VUE_APP_NETWORK_ERROR)
+    }
     return Promise.reject(error)
   }
 )
@@ -68,13 +71,31 @@ function apiArticleList() {
   return instance.get('/api/articles')
 }
 
+function apiArticleCreate(formData) {
+  return instance.post('/api/articles', formData)
+}
+
 function apiEditorImageUpload(formData) {
   return instance.post('/api/articles/editorUpload', formData)
 }
 
-function apiArticleCreate() {
-  return instance.post('/api/articles')
+function apiArticleRead(article_seq) {
+  return instance.get(`/api/articles/${article_seq}`)
 }
+
+function apiArticleUpdate(formData) {
+  formData.append('_method', 'PUT')
+  return instance.post('/api/articles', formData)
+}
+
+function apiArticleDelete(article_seq) {
+  let form = new FormData();
+  form.append('_method', 'PATCH')
+  form.append('article_seq', article_seq)
+  form.append('use_yn', 'N')
+  return instance.post('/api/articles/delete', form)
+}
+
 
 export {
   apiLogin,
@@ -82,5 +103,9 @@ export {
   apiUserList,
   apiUserProfileImage,
   apiArticleList,
-  apiEditorImageUpload
+  apiArticleCreate,
+  apiEditorImageUpload,
+  apiArticleRead,
+  apiArticleUpdate,
+  apiArticleDelete
 }

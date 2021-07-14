@@ -118,6 +118,9 @@ export default {
         this.articleList = apiData.data
       }
     })
+    .catch(error => {
+      console.log(error)
+    })
   },
   computed: {
     /**

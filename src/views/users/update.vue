@@ -43,11 +43,11 @@
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4 pb-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <div class="mx-auto w-32 h-32 cursor-pointer relative">
-                    <img ref="profile_img" class="absolute inset-0 z-0 rounded-full" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
+                    <img ref="profile_img" class="absolute inset-0 z-0 rounded-full w-32 h-32 object-none object-center" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
                     <div @click="fileClick" class="opacity-0 hover:opacity-90 bg-gray-400 duration-200 absolute inset-0 z-10 flex justify-center items-center text-2xl text-white rounded-full">
                       <i class="fas fa-camera"></i>
                     </div>
-                    <input @change="fileUpload" type="file" class="hidden" ref="fileInput">
+                    <input @change="fileUpload" type="file" accept="image/*" class="hidden" ref="fileInput">
                   </div>
                   <div class="mx-auto w-60 mt-4">
                     <p class="text-xs text-gray-400 text-center">정사각형 비율의 이미지를 올려주세요</p></div>
@@ -180,30 +180,17 @@ export default {
     fileUpload(event){
       let file = event.currentTarget.files[0];
       let input = event.currentTarget;
-      let url = input.value;
-      let ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();        
-      if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")){
-        let reader = new FileReader()
-        let self = this
-        reader.onload = function (e) {
-          self.$refs.profile_img.src = e.target.result
-        }
-        reader.readAsDataURL(input.files[0])
+      let reader = new FileReader()
+      let self = this
+      reader.onload = function (e) {
+        self.$refs.profile_img.src = e.target.result
+      }
+      reader.readAsDataURL(input.files[0])
 
-        apiUserProfileImage(this.user_seq, file)
-        .then(res => {
-          console.log(res)
-        })
-       } else {
-        this.$swal({
-        title: '파일 오류',
-        text: '이미지 형식이 올바르지 않습니다. 다시 한번 확인해주세요',
-        icon: 'error',
-        showCancelButton: false,
-        confirmButtonText: `확인`,
-        reverseButtons: true
-        })
-       }
+      apiUserProfileImage(this.user_seq, file)
+      .then(res => {
+        console.log(res)
+      })
     },
 
   },

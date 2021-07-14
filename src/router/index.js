@@ -11,6 +11,7 @@ import UserReadView from '../views/users/read'
 import UserUpdateView from '../views/users/update'
 import ArticleListView from '../views/articles/'
 import ArticleCreateView from '../views/articles/create'
+import ArticleReadView from '../views/articles/read'
 
 Vue.use(VueRouter)
 
@@ -102,6 +103,15 @@ const routes = [
       layout: 'adminLayout'
     },
     component: ArticleCreateView,
+    beforeEnter: requireAuth()
+  },
+  {
+    path: '/articles/:article_seq',
+    name: 'articleRead',
+    meta: {
+      layout: 'adminLayout'
+    },
+    component: ArticleReadView,
     beforeEnter: requireAuth()
   },
   { /* 404 error 방지 */

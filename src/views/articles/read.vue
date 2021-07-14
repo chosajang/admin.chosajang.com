@@ -12,7 +12,7 @@
               <router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
             </li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글쓰기</li> 
+            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글 조회</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->
@@ -49,6 +49,8 @@
                   <div class="my-2">
                     <editor
                       ref="toastuiEditor"
+                      v-if="editorRender"
+                      :initialValue="article.contents"
                       :options="editorOptions"
                     />
                   </div>
@@ -59,7 +61,7 @@
                 <div class="col-span-4 md:col-span-1 h-40">
                   <label class="block text-sm mb-1" for="title">썸네일 이미지</label>
                   <div class="mx-auto h-32 w-52 cursor-pointer relative rounded-lg">
-                    <img :src="imagePreview" onerror="this.src='/assets/images/blog.png'" class="absolute object-none object-center bg-gray-100 h-32 w-full mx-auto inset-0 z-0 rounded-lg" alt="thumbnail image url">
+                    <img :src="article.thumbnail_url" onerror="this.src='/assets/images/blog.png'" class="absolute object-none object-center bg-gray-100 h-32 w-full mx-auto inset-0 z-0 rounded-lg" alt="thumbnail image url">
                     <div @click="fileClick" class="opacity-0 hover:opacity-90 bg-gray-400 duration-200 absolute inset-0 z-10 flex justify-center items-center text-2xl text-white rounded-lg">
                       <i class="fas fa-camera"></i>
                     </div>
@@ -72,10 +74,15 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 items-center justify-items-end m-4">
-                <div class="md:col-start-2">
-                  <input type="button" v-on:click="createCancel" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-gray-600" value="취소"/>
-                  <input type="button" v-on:click="createApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="글 작성하기"/>
+              <div class="grid grid-cols-4 items-center m-4">
+                <div class="col-span-1">
+                  <input type="button" v-on:click="articleDelete" class="rounded bg-red-500 py-1 px-6 cursor-pointer text-white w-26 hover:bg-red-600" value="삭제하기"/>
+                </div>
+                <div class="col-span-3 md:col-start-2 grid justify-items-end">
+                  <div>
+                    <input type="button" v-on:click="updateCancel" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-gray-600" value="취소"/>
+                    <input type="button" v-on:click="updateApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
+                  </div>
                 </div>
               </div>
               <!--// Form Body : ED -->
@@ -90,7 +97,7 @@
 </template>
 
 <script>
-import { apiArticleCreate, apiEditorImageUpload } from '@/api'
+import { apiArticleUpdate, apiEditorImageUpload, apiArticleRead, apiArticleDelete } from '@/api'
 
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/ko-kr'
@@ -107,7 +114,8 @@ export default {
   },
   data() {
     return {
-      // user_seq: this.$route.params.user_seq,
+      article_seq: this.$route.params.article_seq,
+      editorRender: false,
       article: {
         title: '',
         contents: '',
@@ -178,13 +186,13 @@ export default {
     fileChange (e) {
       const file = e.target.files[0]
       this.article.thumbnail_image = file
-      this.imagePreview = URL.createObjectURL(file)
+      this.article.thumbnail_url = URL.createObjectURL(file)
     },
 
-    createCancel () {
+    updateCancel () {
       this.$swal({
-        title: '등록 취소',
-        text: '글 등록을 취소하시겠습니까?',
+        title: '수정 취소',
+        text: '글 수정을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: `네, 취소합니다`,
@@ -198,8 +206,9 @@ export default {
       })
     },
 
-    createApply () {
+    updateApply () {
       const FORMDATA = new FormData()
+      FORMDATA.append('article_seq', this.article_seq)
       FORMDATA.append('title', this.article.title)
       FORMDATA.append('contents', this.$refs.toastuiEditor.invoke('getMarkdown'))
       FORMDATA.append('post_yn', this.article.post_yn == 'true' ? 'Y' : 'N')
@@ -209,29 +218,26 @@ export default {
       FORMDATA.append('description', this.article.description)
       
       this.$swal({
-        title: '글 등록하기',
-        text: '작성한 글을 등록하시겠습니까?',
+        title: '글 수정하기',
+        text: '작성한 글을 수정하시겠습니까?',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: `네, 등록합니다`,
+        confirmButtonText: `네, 수정합니다`,
         cancelButtonText: `아니오`,
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
           
-          apiArticleCreate(FORMDATA)
+          apiArticleUpdate(FORMDATA)
           .then(res => {
             const apiData = res.data
-            this.$swal('등록되었습니다', '', 'success')
+            this.$swal('수정되었습니다', '', 'success')
             .then(() => {
               this.$router.push({ path: `/articles/${apiData.article_seq}` })
             })
           })
           .catch(error => {
             console.log(error.response)
-            /**
-             * 유효성 검사 실패 시, 
-             */
             this.$swal({
               title: error.response.statusText,
               html: error.response.data.messages,
@@ -241,10 +247,52 @@ export default {
           
         }
       })
+    },
+
+    articleDelete () {
+      this.$swal({
+        title: '글 삭제하기',
+        html: '작성한 글을 삭제하시겠습니까?<p class="text-base text-red-500">*삭제하면 목록에서 사라집니다</p>',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: `네, 삭제합니다`,
+        confirmButtonColor: '#FF0000',
+        cancelButtonText: `아니오`,
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          apiArticleDelete(this.article_seq)
+          .then(() => {
+            this.$swal('삭제되었습니다', '', 'success')
+            .then(() => {
+              this.$router.push({ path: '/articles' })
+            })
+          })
+        }
+      })
     }
+
   },
-  mounted() {
-    // const ui = this.$refs.toastuiEditor.invoke('getUI')
+
+  created() {
+    apiArticleRead(this.article_seq)
+    .then(res => {
+      if( res.status == 200 ) {
+        const apiData = res.data
+        this.article = apiData.data
+        this.article.post_yn = this.article.post_yn == 'Y' ? true : false
+        this.editorRender = true
+      } else {
+        this.$swal({
+          title: '정보 없음',
+          html: '요청한 회원정보가 존재하지 않습니다<br/>목록으로 돌아갑니다',
+          icon: 'error'
+        }).then(() => {
+          this.$router.push({ path: '/users' })
+        })
+      }
+    })
   }
+
 }
 </script>
