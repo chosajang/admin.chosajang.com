@@ -43,11 +43,11 @@
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4 pb-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <div class="mx-auto w-32 h-32 cursor-pointer relative">
-                    <img ref="profile_img" class="absolute inset-0 z-0 rounded-full w-32 h-32 object-none object-center" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
+                    <img ref="profile_img" class="absolute inset-0 z-0 rounded-full w-32 h-32 object-none object-center object-scale-down" :src="userInfo.profile_image_url" onerror="this.src='/assets/images/user.png'" alt="profile image url">
                     <div @click="fileClick" class="opacity-0 hover:opacity-90 bg-gray-400 duration-200 absolute inset-0 z-10 flex justify-center items-center text-2xl text-white rounded-full">
                       <i class="fas fa-camera"></i>
                     </div>
-                    <input @change="fileUpload" type="file" accept="image/*" class="hidden" ref="fileInput">
+                    <input @change="fileUpload" type="file" accept="image/gif, image/jpeg, image/png" class="hidden" ref="fileInput">
                   </div>
                   <div class="mx-auto w-60 mt-4">
                     <p class="text-xs text-gray-400 text-center">정사각형 비율의 이미지를 올려주세요</p></div>
@@ -195,6 +195,12 @@ export default {
 
   },
   created() {
+
+    // 본인이 조회하는 경우, 수정화면으로 바로 이동
+    if( this.$store.getters.getUserInfo.userInfo.user_seq != parseInt(this.user_seq) ) {
+      this.$router.push({ path: `/users/${this.user_seq}`})
+    }
+
     apiUserInfo(this.user_seq)
     .then(res => {
       if( res.status == 200 ) {

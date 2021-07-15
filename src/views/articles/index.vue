@@ -31,7 +31,7 @@
                 </div>
               </div>
               <div class="flex flex-row grid grid-cols-1 md:grid-cols-3 my-2 items-baseline">
-                <input type="text" class="placeholder-gray-400 rounded w-full py-1 px-4 text-base font-light border border-gray-400" v-model="search" name="search_word" placeholder="제목 검색"/>
+                <input type="text" v-model="search" class="placeholder-gray-400 rounded w-full py-1 px-4 text-base font-light border-transparent border-2 duration-200 border-gray-200 rounded-lg outline-none focus:border-blue-400 hover:border-blue-400" placeholder="제목 검색"/>
                 <!-- <input type="button" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-blue-600" value="검색"/> -->
               </div><!--// Table Title : ED -->
               <table class="">

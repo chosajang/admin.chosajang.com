@@ -19,7 +19,6 @@ const requireAuth = () => (to, from, next) => {
   if( to.meta.pageLoader ){
     bus.$emit('start:spinner')
   }
-
   if( store.getters.getUserInfo.access_token == undefined ) {
     return next('/login')
   } else {
@@ -55,7 +54,8 @@ const routes = [
     path: '/users',
     name: 'userList',
     meta: {
-      layout: 'adminLayout'
+      layout: 'adminLayout',
+      pageLoader: true
     },
     component: UserListView,
     beforeEnter: requireAuth()
@@ -91,7 +91,8 @@ const routes = [
     path: '/articles',
     name: 'articleList',
     meta: {
-      layout: 'adminLayout'
+      layout: 'adminLayout',
+      pageLoader: true
     },
     component: ArticleListView,
     beforeEnter: requireAuth()

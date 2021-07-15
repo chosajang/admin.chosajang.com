@@ -23,7 +23,7 @@
 
           <!--// Form : ST -->
           <div class="col-span-12">
-            <div class="flex flex-col rounded min-w-full bg-white shadow-sm">
+            <div @mousemove="dragBarStart" class="flex flex-col rounded min-w-full bg-white shadow-sm">
 
               <!--// Form Body : ST -->
               <div class="grid grid-cols-4 gap-4 items-center justify-center m-4">
@@ -39,6 +39,7 @@
                     :width="toggleBtn.width"
                     :font-size="toggleBtn.fontSize"
                     :color="toggleBtn.color"
+                    :sync="true"
                     class="my-2" />
                 </div>
               </div>
@@ -46,13 +47,17 @@
               <div class="grid grid-cols-1 items-center justify-center m-4 z-0">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
-                  <div class="my-2">
+                  <div ref="editorWrap" class="h-96">
                     <editor
                       ref="toastuiEditor"
                       v-if="editorRender"
+                      height="100%"
                       :initialValue="article.contents"
                       :options="editorOptions"
                     />
+                  </div>
+                  <div @mousedown="dragBarClick" class="w-full h-4 border bg-gray-100 cursor-pointer rounded text-xs text-gray-600 text-center hover:text-blue-600">
+                    <i class="fas fa-sort"></i> 입력창 크기 조절
                   </div>
                 </div>
               </div>
@@ -61,11 +66,11 @@
                 <div class="col-span-4 md:col-span-1 h-40">
                   <label class="block text-sm mb-1" for="title">썸네일 이미지</label>
                   <div class="mx-auto h-32 w-52 cursor-pointer relative rounded-lg">
-                    <img :src="article.thumbnail_url" onerror="this.src='/assets/images/blog.png'" class="absolute object-none object-center bg-gray-100 h-32 w-full mx-auto inset-0 z-0 rounded-lg" alt="thumbnail image url">
+                    <img :src="article.thumbnail_url" onerror="this.src='/assets/images/blog.png'" class="absolute object-none object-scale-down object-center bg-gray-100 h-32 w-full mx-auto inset-0 z-0 rounded-lg" alt="thumbnail image url">
                     <div @click="fileClick" class="opacity-0 hover:opacity-90 bg-gray-400 duration-200 absolute inset-0 z-10 flex justify-center items-center text-2xl text-white rounded-lg">
                       <i class="fas fa-camera"></i>
                     </div>
-                    <input v-bind="article.thumbnail_image" @change="fileChange" accept="image/*" type="file" class="hidden" ref="thumbnail_file">
+                    <input v-bind="article.thumbnail_image" @change="fileChange" accept="image/gif, image/jpeg, image/png" type="file" class="hidden" ref="thumbnail_file">
                   </div>
                 </div>
                 <div class="col-span-4 md:col-span-3 h-40">
@@ -80,7 +85,7 @@
                 </div>
                 <div class="col-span-3 md:col-start-2 grid justify-items-end">
                   <div>
-                    <input type="button" v-on:click="updateCancel" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-gray-600" value="취소"/>
+                    <input type="button" v-on:click="updateCancel" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 ml-4 hover:bg-gray-600" value="취소"/>
                     <input type="button" v-on:click="updateApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
                   </div>
                 </div>
@@ -137,8 +142,6 @@ export default {
       },
       editorOptions: {
         language: 'ko',
-        minHeight: '400px',
-        height: '100%',
         previewStyle: 'vertical',
         initialEditType: 'markdown',
         placeholder: '여기에 글을 작성하세요',
@@ -173,7 +176,12 @@ export default {
             return false;
           }
         }
-      }
+      },
+      editorWrap: '',
+      barDraging: false,
+      currentMouseY: 0,
+      currentEditorY: 0,
+      minEditorY: 384 // h-96 = 24rem = 384px
     }
   },
   methods: {
@@ -211,7 +219,8 @@ export default {
       FORMDATA.append('article_seq', this.article_seq)
       FORMDATA.append('title', this.article.title)
       FORMDATA.append('contents', this.$refs.toastuiEditor.invoke('getMarkdown'))
-      FORMDATA.append('post_yn', this.article.post_yn == 'true' ? 'Y' : 'N')
+      FORMDATA.append('post_yn', this.article.post_yn == true ? 'Y' : 'N')
+      
       if( this.article.thumbnail_image ) {
         FORMDATA.append('thumbnail_image', this.article.thumbnail_image)
       }
@@ -270,6 +279,25 @@ export default {
           })
         }
       })
+    },
+
+    dragBarClick(e) {
+      this.barDraging = true
+      this.currentMouseY = e.clientY
+      this.currentEditorY = this.$refs.editorWrap.clientHeight
+    },
+
+    dragBarStart(e) {
+      if( this.barDraging ){
+        let changeY = (this.currentEditorY + (e.clientY - this.currentMouseY))
+        if( this.minEditorY < changeY ) {
+          this.$refs.editorWrap.style.height = (this.currentEditorY + (e.clientY - this.currentMouseY)) + 'px'
+        }
+      }
+    },
+
+    barDragStop() {
+      this.barDraging = false
     }
 
   },
@@ -292,6 +320,10 @@ export default {
         })
       }
     })
+  },
+
+  mounted() {
+    window.addEventListener('mouseup', this.barDragStop)
   }
 
 }

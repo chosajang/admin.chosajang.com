@@ -66,7 +66,6 @@
               <div class="col-span-7 md:col-span-3 grid items-center justify-items-end">
                 <div>
                   <input type="button" v-on:click="userList" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 hover:bg-gray-600" value="목록"/>
-                  <input type="button" v-on:click="userUpdate" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
                 </div>
               </div>
             </div>
@@ -105,12 +104,14 @@ export default {
       this.$router.push({ path: '/users' })
     },
 
-    userUpdate() {
-      this.$router.push({ path: '/users/update/' + this.user_seq })
-    }
-
   },
   created() {
+
+    // 본인이 조회하는 경우, 수정화면으로 바로 이동
+    if( this.$store.getters.getUserInfo.userInfo.user_seq == parseInt(this.user_seq) ) {
+      this.$router.push({ path: `/users/update/${this.user_seq}`})
+    }
+
     apiUserInfo(this.user_seq)
     .then(res => {
       if( res.status == 200 ) {

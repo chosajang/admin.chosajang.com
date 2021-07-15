@@ -17,7 +17,7 @@
               </div>
               <div class="flex flex-col flex-grow ml-4">
                 <div class="text-sm text-gray-500">회원 수</div>
-                <div class="font-bold text-lg">3</div>
+                <div class="font-bold text-lg">{{ user_count }}</div>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
               </div>
               <div class="flex flex-col flex-grow ml-4">
                 <div class="text-sm text-gray-500">내가 쓴 글</div>
-                <div class="font-bold text-lg">11</div>
+                <div class="font-bold text-lg">{{ article_count }}</div>
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
               </div>
               <div class="flex flex-col flex-grow ml-4">
                 <div class="text-sm text-gray-500">최근 작업일</div>
-                <div class="font-bold text-lg">2021-07-14</div>
+                <div class="font-bold text-lg">{{ this.latest_working_date }}</div>
               </div>
             </div>
           </div>
@@ -78,67 +78,35 @@
                   <!-- <button type="button" class="w-full bg-gray-200 text-gray-700 rounded px-4 py-1 transition duration-200 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline" >
                     more<i class="fas fa-angle-right pl-2"></i>
                   </button> -->
-                  <a href="#">more<i class="fas fa-angle-right pl-1 text-xs"></i></a>
+                  <!-- <a href="#">more<i class="fas fa-angle-right pl-1 text-xs"></i></a> -->
                 </div>
               </div>
               <table class="">
                 <thead>
                   <tr class="text-sm text-gray-600 bg-gray-100 rounded">
-                    <th class="p-2 rounded-tl rounded-bl">기업명</th>
-                    <th class="p-2">상태</th>
+                    <th class="p-2 rounded-tl rounded-bl">글 제목</th>
+                    <th class="p-2">작성자</th>
                     <th class="p-2 rounded-tr rounded-br">등록일</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">Google</td>
+                  <tr v-for="(item) in postingArticleList" v-bind:key="item.SEQ" class="text-sm text-gray-600 text-center hover:bg-gray-100">
                     <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-blue-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">승인대기</span>
-                      </span>
+                      <router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline"><p class="truncate max-w-xs">{{ item.title }}</p></router-link>
                     </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
-                  </tr>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">Kakao</td>
                     <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-red-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">승인보류</span>
-                      </span>
+                      <div class="flex items-center justify-center">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 w-6 h-6">
+                            <img class="w-full h-full rounded-full" :src="item.user_image_url" alt="" onerror="this.src='/assets/images/user.png'" />
+                          </div>
+                          <div class="ml-2">
+                            <p class="whitespace-no-wrap">{{item.user_name}}</p>
+                          </div>
+                        </div>
+                      </div>
                     </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
-                  </tr>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">Amazon</td>
-                    <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-green-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">운영중</span>
-                      </span>
-                    </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
-                  </tr>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">Datadog</td>
-                    <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-green-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">운영중</span>
-                      </span>
-                    </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
-                  </tr>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">Naver</td>
-                    <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">운영중지</span>
-                      </span>
-                    </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
+                    <td class="p-2 text-xs">{{ item.created_at }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -157,37 +125,35 @@
                   <!-- <button type="button" class="w-full bg-gray-200 text-gray-700 rounded px-4 py-1 transition duration-200 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline" >
                     more<i class="fas fa-angle-right pl-2"></i>
                   </button> -->
-                  <a href="#">more<i class="fas fa-angle-right pl-1 text-xs"></i></a>
+                  <!-- <a href="#">more<i class="fas fa-angle-right pl-1 text-xs"></i></a> -->
                 </div>
               </div>
               <table class="">
                 <thead>
                   <tr class="text-sm text-gray-600 bg-gray-100 rounded">
-                    <th class="p-2 rounded-tl rounded-bl">기업명</th>
-                    <th class="p-2">상태</th>
-                    <th class="p-2 rounded-tr rounded-br">요청일시</th>
+                    <th class="p-2 rounded-tl rounded-bl">제목</th>
+                    <th class="p-2">글쓴이</th>
+                    <th class="p-2 rounded-tr rounded-br">등록일</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">마이다스아이티</td>
+                  <tr v-for="(item) in workingArticleList" v-bind:key="item.SEQ" class="text-sm text-gray-600 text-center hover:bg-gray-100">
                     <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-blue-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">승인대기</span>
-                      </span>
+                      <router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline"><p class="truncate max-w-xs">{{ item.title }}</p></router-link>
                     </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
-                  </tr>
-                  <tr class="text-sm text-gray-600 text-center hover:bg-gray-100">
-                    <td class="p-2">제네시스랩</td>
                     <td class="p-2">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
-                        <span aria-hidden="" class="absolute inset-0 bg-blue-200 opacity-50 rounded-lg"></span>
-                        <span class="relative text-xs">승인대기</span>
-                      </span>
+                      <div class="flex items-center justify-center">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 w-6 h-6">
+                            <img class="w-full h-full rounded-full" :src="item.user_image_url" alt="" onerror="this.src='/assets/images/user.png'" />
+                          </div>
+                          <div class="ml-2">
+                            <p class="whitespace-no-wrap">{{item.user_name}}</p>
+                          </div>
+                        </div>
+                      </div>
                     </td>
-                    <td class="p-2 text-xs">2021-03-23</td>
+                    <td class="p-2 text-xs">{{ item.created_at }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -203,14 +169,29 @@
 </template>
 
 <script>
-import { apiUserInfo } from '@/api'
+import { apiDashboard } from '@/api'
 
 export default {
   name: 'dashboard',
-  mounted() {
-    apiUserInfo(1)
+  data () {
+    return {
+      user_count: 0,
+      article_count: 0,
+      latest_working_date: '',
+      postingArticleList: [],
+      workingArticleList: [],
+    }
+  },
+
+  created() {
+    apiDashboard()
     .then(res => {
-      console.log('dashboard =>', res.data)
+      const apiData = res.data
+      this.user_count = apiData.data.userCount
+      this.article_count = apiData.data.articleCount
+      this.latest_working_date = apiData.data.latestWorkingDate
+      this.postingArticleList = apiData.data.latestPostingArticleList
+      this.workingArticleList = apiData.data.latestWorkingArticleList
     })
   }
 }

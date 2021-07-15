@@ -55,6 +55,10 @@ function apiLogin (id, password) {
   return instance.post('/api/login', form)
 }
 
+function apiDashboard() {
+  return instance.get('/api/dashboard')
+}
+
 function apiUserList () {
   return instance.get('/api/users')
 }
@@ -99,6 +103,7 @@ function apiArticleDelete(article_seq) {
 
 export {
   apiLogin,
+  apiDashboard,
   apiUserInfo,
   apiUserList,
   apiUserProfileImage,
