@@ -47,7 +47,7 @@
 
                   <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ">
                     <th class="p-2">{{ (pageNum * 10) + index + 1 }}</th>
-                    <td class="p-2"><router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline">{{item.title}}</router-link></td>
+                    <td class="p-2 text-left"><router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline">{{item.title}}</router-link></td>
                     <td class="p-2">
                       <div class="flex items-center justify-center">
                         <div class="flex items-center">
