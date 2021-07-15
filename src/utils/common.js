@@ -20,4 +20,3 @@ export {
   getUserInfo,
   btnSpinner
 };
-  
