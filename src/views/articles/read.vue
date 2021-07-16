@@ -81,7 +81,7 @@
 
               <div class="grid grid-cols-4 items-center m-4">
                 <div class="col-span-1">
-                  <input type="button" v-on:click="articleDelete" class="rounded bg-red-500 py-1 px-6 cursor-pointer text-white w-26 hover:bg-red-600" value="삭제하기"/>
+                  <input type="button" v-on:click="articleDelete" class="rounded bg-gray-100 py-1 px-6 cursor-pointer text-gray-600 w-26 hover:bg-gray-200" value="삭제하기"/>
                 </div>
                 <div class="col-span-3 md:col-start-2 grid justify-items-end">
                   <div>
