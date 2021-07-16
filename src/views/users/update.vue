@@ -12,11 +12,7 @@
               <router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
             </li>
             <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600">
-              <router-link :to="'/users/' + user_seq" class="font-medium text-blue-500 hover:underline mx-2">조회</router-link>
-            </li>
-            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">정보 수정</li> 
+            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">조회</li> 
           </ol>
         </nav>
       </div><!-- Breadcrumb : ED -->
@@ -69,47 +65,87 @@
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <label class="block text-sm text-gray-800" for="cus_name">아이디</label>
-                  <input :value="userInfo.id" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="아이디" aria-label="Name">
+                  <input v-model="userInfo.id" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none cursor-not-allowed" type="text" required="true" placeholder="아이디" aria-label="Name" readonly>
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <label class="block text-sm text-gray-800" for="cus_name">이름</label>
-                  <input :value="userInfo.name" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이름" aria-label="Name">
+                  <input v-model="userInfo.name" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이름" aria-label="Name">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
+                <div class="md:col-start-2 md:col-span-2">
+                  <label class="block text-sm text-gray-800" for="cus_name">닉네임</label>
+                  <input v-model="userInfo.nickname" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="닉네임" aria-label="NickName">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <label class="block text-sm text-gray-800" for="cus_name">이메일</label>
-                  <input :value="userInfo.email" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이메일" aria-label="Name">
+                  <input v-model="userInfo.email" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="이메일" aria-label="Email">
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
                 <div class="md:col-start-2 md:col-span-2">
                   <label class="block text-sm text-gray-800" for="cus_name">연락처</label>
-                  <input :value="userInfo.tel" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="연락처(000-0000-0000)" aria-label="Name">
+                  <input v-model="userInfo.tel" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="text" required="true" placeholder="연락처(000-0000-0000)" aria-label="tel">
                 </div>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
-                <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-800" for="cus_name">비밀번호</label>
-                  <input class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="비밀번호" aria-label="Name">
-                </div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
-                <div class="md:col-start-2 md:col-span-2">
-                  <label class="block text-sm text-gray-800" for="cus_name">비밀번호 확인</label>
-                  <input class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="비밀번호 확인" aria-label="Name">
-                </div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-items-end m-4">
-                <div class="md:col-start-2 md:col-span-2">
-                  <input type="button" v-on:click="modifyCancel" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 ml-2 hover:bg-gray-600" value="취소"/>
-                  <input type="button" v-on:click="modifyApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정"/>
+              <div class="grid grid-cols-1 md:grid-cols-4 m-4">
+                <div class="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2">
+                  <div>
+                    <input type="button" v-on:click="updateApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 ml-2 hover:bg-blue-600" value="수정하기"/>
+                  </div>
+                  <div class="grid items-center justify-items-end">
+                    <input type="button" v-on:click="userList" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 hover:bg-gray-600" value="목록"/>
+                  </div>
                 </div>
               </div>
               <!--// Form Body : ED -->
             </div>
+
+            <div class="flex flex-col rounded min-w-full bg-white shadow-sm mt-4">
+              <!--// Form Title : ST -->
+              <div class="flex flex-row grid grid-cols-6 m-4 items-baseline">
+                <div class="col-span-6 text-lg font-bold">
+                  비밀번호 변경
+                </div>
+              </div>
+              <!--// Form Title : ED -->
+
+              <!--// Form Body : ST -->
+              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
+                <div class="md:col-start-2 md:col-span-2">
+                  <label class="block text-sm text-gray-800" for="cus_name">기존 비밀번호</label>
+                  <input v-model="userInfo.password" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="기존 비밀번호" aria-label="Password">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
+                <div class="md:col-start-2 md:col-span-2">
+                  <label class="block text-sm text-gray-800" for="cus_name">새로운 비밀번호</label>
+                  <input v-model="userInfo.new_password" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="새로운 비밀번호" aria-label="Password">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-4 items-center justify-center m-4">
+                <div class="md:col-start-2 md:col-span-2">
+                  <label class="block text-sm text-gray-800" for="cus_name">새로운 비밀번호 확인</label>
+                  <input v-model="userInfo.new_password_confirmation" class="w-full px-5 py-1 mt-1 text-lg text-gray-700 rounded outline-none border-transparent border-2 hover:bg-gray-200 focus:border-blue-400 focus:bg-white duration-200" type="password" required="true" placeholder="새로운 비밀번호 확인" aria-label="Password Confirmed">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-4 m-4">
+                <div class="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2">
+                  <div>
+                    <input type="button" v-on:click="updatePasswordApply" class="rounded bg-blue-500 py-1 px-6 cursor-pointer text-white w-26 hover:bg-blue-600" value="비밀번호 수정"/>
+                  </div>
+                  <div class="grid items-center justify-items-end">
+                    <!-- <input type="button" v-on:click="userList" class="rounded bg-gray-500 py-1 px-6 cursor-pointer text-white w-20 hover:bg-gray-600" value="목록"/> -->
+                  </div>
+                </div>
+              </div>
+              <!--// Form Body : ED -->
+            </div>
+          
           </div><!--// Form : ED -->
 
         </div><!--// Card Col : ED -->
@@ -120,7 +156,7 @@
 </template>
 
 <script>
-import { apiUserInfo, apiUserProfileImage } from '@/api'
+import { apiUserInfo, apiUserProfileImage, apiUserUpdate, apiUserPasswordChange } from '@/api'
 
 export default {
   name: 'userUpdate',
@@ -132,25 +168,7 @@ export default {
   },
   methods: {
 
-    modifyCancel() {
-      this.$swal({
-        title: '수정 취소',
-        text: '회원 정보 수정을 취소하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: `네, 취소합니다`,
-        confirmButtonColor: '#FF0000',
-        cancelButtonText: `아니오`,
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$router.back()
-        }
-        
-      })
-    },
-
-    modifyApply() {
+    updateApply() {
       this.$swal({
         title: '정보 수정',
         text: '회원 정보를 수정하시겠습니까?',
@@ -161,15 +179,92 @@ export default {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          /**
-           * todo : 수정 API 호출
-           */
-          this.$swal('수정되었습니다', '', 'success')
+
+          const FORMDATA = new FormData()
+          FORMDATA.append('name', this.userInfo.name)
+          FORMDATA.append('nickname', this.userInfo.nickname)
+          FORMDATA.append('email', this.userInfo.email)
+          FORMDATA.append('tel', this.userInfo.tel)
+          
+          apiUserUpdate(FORMDATA)
           .then(() => {
-            this.$router.push({ path: `/users/${this.user_seq}` })
+            this.$swal('수정되었습니다', '', 'success')
+            .then(() => {
+              this.$router.push({ path: `/users/${this.user_seq}` })
+            })
           })
+          .catch((error) => {
+            const errorResponse = error.response
+            if( errorResponse.status == 400 ) {
+              const errorData = error.response.data.messages
+              let validation_message = ''
+              for ( let item in errorData ) {
+                validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+              }
+              this.$swal({
+                title: '유효성 검사 실패', 
+                html: validation_message, 
+                icon: 'error'
+              })
+            }
+          })
+
         }
       })
+    },
+
+    updatePasswordApply() {
+      this.$swal({
+        title: '비밀번호 수정',
+        text: '회원 비밀번호를 수정하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: `네, 수정합니다`,
+        cancelButtonText: `아니오`,
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          const FORMDATA = new FormData()
+          FORMDATA.append('origin_password', this.userInfo.password)
+          FORMDATA.append('password', this.userInfo.new_password)
+          FORMDATA.append('password_confirmation', this.userInfo.new_password_confirmation)
+
+          apiUserPasswordChange(FORMDATA)
+          .then(() => {
+            this.$swal('수정되었습니다', '', 'success')
+            .then(() => {
+              this.$router.push({ path: `/users/${this.user_seq}` })
+            })
+          })
+          .catch((error) => {
+            const errorResponse = error.response
+            if( errorResponse.status == 400 ) {
+              const errorData = error.response.data.messages
+              
+              let validation_message = ''
+              if( typeof errorData == "object" ) {
+                for ( let item in errorData ) {
+                  validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+                }
+              } else {
+                validation_message = errorData
+              }
+              
+              this.$swal({
+                title: '유효성 검사 실패', 
+                html: validation_message, 
+                icon: 'error'
+              })
+            }
+          })
+
+        }
+      })
+    },
+
+    userList() {
+      this.$router.push({ path: '/users' })
     },
 
     fileClick(){
