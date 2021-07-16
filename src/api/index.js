@@ -55,6 +55,10 @@ function apiLogin (id, password) {
   return instance.post('/api/login', form)
 }
 
+function apiTokenRefresh() {
+  return instance.get('/api/refresh')
+}
+
 function apiDashboard() {
   return instance.get('/api/dashboard')
 }
@@ -69,6 +73,16 @@ function apiUserProfileImage (user_seq, fileObj) {
   form.append('user_seq', user_seq)
   form.append('file', fileObj)
   return instance.post('/api/users/profileImage', form)
+}
+
+function apiUserUpdate(formData) {
+  formData.append('_method', 'PUT')
+  return instance.post('/api/users', formData)
+}
+
+function apiUserPasswordChange(formData) {
+  formData.append('_method', 'PATCH')
+  return instance.post('/api/users/passwordChange', formData)
 }
 
 function apiArticleList() {
@@ -103,10 +117,13 @@ function apiArticleDelete(article_seq) {
 
 export {
   apiLogin,
+  apiTokenRefresh,
   apiDashboard,
   apiUserInfo,
   apiUserList,
   apiUserProfileImage,
+  apiUserUpdate,
+  apiUserPasswordChange,
   apiArticleList,
   apiArticleCreate,
   apiEditorImageUpload,
