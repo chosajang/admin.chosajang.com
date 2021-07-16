@@ -284,7 +284,9 @@ export default {
 
       apiUserProfileImage(this.user_seq, file)
       .then(res => {
-        console.log(res)
+        const apiData = res.data
+        // 프로필 이미지 갱신
+        this.$store.getters.getUserInfo.userInfo.profile_image_url = apiData.data.file_url
       })
     },
 
