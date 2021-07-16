@@ -43,10 +43,10 @@
                     <th class="p-2 rounded-tr rounded-br hidden md:table-cell">작성일</th>
                   </tr>
                 </thead>
-                <tbody class="text-sm text-gray-900 text-center">
+                <tbody class="text-sm text-gray-900 text-center rounded-md">
 
-                  <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ">
-                    <th class="p-2">{{ (pageNum * 10) + index + 1 }}</th>
+                  <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ" class="hover:bg-gray-100">
+                    <th class="p-2 rounded-l-md">{{ (pageNum * 10) + index + 1 }}</th>
                     <td class="p-2 text-left"><router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline">{{item.title}}</router-link></td>
                     <td class="p-2">
                       <div class="flex items-center justify-center">
@@ -60,7 +60,7 @@
                         </div>
                       </div>
                     </td>
-                    <td class="p-2 hidden md:table-cell">{{ item.created_at }}</td>
+                    <td class="p-2 hidden md:table-cell rounded-r-md">{{ item.created_at }}</td>
                   </tr>
 
                 </tbody>

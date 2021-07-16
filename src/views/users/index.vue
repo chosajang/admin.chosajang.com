@@ -45,8 +45,8 @@
                 </thead>
                 <tbody class="text-sm font-bold text-gray-600 text-center">
 
-                  <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ">
-                    <th class="p-2">{{ (pageNum * 10) + index + 1 }}</th>
+                  <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ" class="hover:bg-gray-100">
+                    <th class="p-2 rounded-l-md">{{ (pageNum * 10) + index + 1 }}</th>
                     <td class="p-2">
                       <div class="flex items-center justify-center">
                         <div class="mr-2">
@@ -56,7 +56,7 @@
                       </div>
                     </td>
                     <td class="p-2 hidden md:table-cell">{{ item.email }}</td>
-                    <td class="p-2 hidden md:table-cell">{{ item.created_at }}</td>
+                    <td class="p-2 hidden md:table-cell rounded-r-md">{{ item.created_at }}</td>
                   </tr>
 
                 </tbody>
@@ -67,10 +67,14 @@
                 <paginate
                   :pageCount="pageCount"
                   :clickHandler="pageMove"
-                  :containerClass="'flex text-sm'"
-                  :prev-class="'mx-1 px-3 py-2'"
-                  :page-class="'mx-1 px-3 py-2 rounded hover:bg-blue-500 hover:text-gray-200 cursor-pointer'"
-                  :next-class="'mx-1 px-3 py-2'" >
+                  :containerClass="'flex text-sm text-gray-600'"
+                  :prev-class="'mr-3 py-2'"
+                  :prev-link-class="'py-2 px-3 rounded-lg hover:bg-gray-200'"
+                  :page-class="'mx-1 py-2'"
+                  :page-link-class="'py-2 px-3 font-bold rounded-lg hover:bg-blue-500 hover:text-gray-100'"
+                  :next-class="'ml-3 py-2'"
+                  :next-link-class="'py-2 px-3 rounded-lg hover:bg-gray-200'"
+                  :active-class="'font-bold text-gray-100 bg-blue-500 rounded-lg'" >
                 </paginate>
               </div><!--// Pagination : ED -->
             </div>
