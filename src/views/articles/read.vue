@@ -200,7 +200,7 @@ export default {
     updateCancel () {
       this.$swal({
         title: '수정 취소',
-        text: '글 수정을 취소하시겠습니까?',
+        html: '내용 저장을 취소하고 목록으로 돌아가시겠습니까?<br/>수정한 내용은 저장되지 않습니다',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: `네, 취소합니다`,
@@ -238,20 +238,37 @@ export default {
         if (result.isConfirmed) {
           
           apiArticleUpdate(FORMDATA)
-          .then(res => {
-            const apiData = res.data
-            this.$swal('수정되었습니다', '', 'success')
-            .then(() => {
-              this.$router.push({ path: `/articles/${apiData.article_seq}` })
+          .then( () => {
+            // const apiData = res.data
+            this.$swal.fire({
+              position: 'bottom-end',
+              icon: 'success',
+              html: '<p class="text-lg">수정 되었습니다<p>',
+              width: 300,
+              showConfirmButton: false,
+              timer: 1000
             })
           })
           .catch(error => {
-            console.log(error.response)
-            this.$swal({
-              title: error.response.statusText,
-              html: error.response.data.messages,
-              icon: 'error'
-            })
+            const errorResponse = error.response
+            if( errorResponse.status == 400 ) {
+              const errorData = error.response.data.messages
+              
+              let validation_message = ''
+              if( typeof errorData == "object" ) {
+                for ( let item in errorData ) {
+                  validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+                }
+              } else {
+                validation_message = errorData
+              }
+              
+              this.$swal({
+                title: '유효성 검사 실패', 
+                html: validation_message, 
+                icon: 'error'
+              })
+            }
           })
           
         }

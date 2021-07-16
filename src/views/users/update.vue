@@ -197,10 +197,16 @@ export default {
             const errorResponse = error.response
             if( errorResponse.status == 400 ) {
               const errorData = error.response.data.messages
+
               let validation_message = ''
-              for ( let item in errorData ) {
-                validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+              if( typeof errorData == "object" ) {
+                for ( let item in errorData ) {
+                  validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+                }
+              } else {
+                validation_message = errorData
               }
+              
               this.$swal({
                 title: '유효성 검사 실패', 
                 html: validation_message, 
@@ -208,7 +214,6 @@ export default {
               })
             }
           })
-
         }
       })
     },

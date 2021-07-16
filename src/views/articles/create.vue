@@ -229,21 +229,33 @@ export default {
           apiArticleCreate(FORMDATA)
           .then(res => {
             const apiData = res.data
+            console.log(apiData)
             this.$swal('등록되었습니다', '', 'success')
             .then(() => {
-              this.$router.push({ path: `/articles/${apiData.article_seq}` })
+              this.$router.push({ path: `/articles/${apiData.data.article_seq}` })
             })
           })
           .catch(error => {
-            console.log(error.response)
-            /**
-             * 유효성 검사 실패 시, 
-             */
-            this.$swal({
-              title: error.response.statusText,
-              html: error.response.data.messages,
-              icon: 'error'
-            })
+            const errorResponse = error.response
+            if( errorResponse.status == 400 ) {
+              const errorData = error.response.data.messages
+              
+              let validation_message = ''
+              if( typeof errorData == "object" ) {
+                for ( let item in errorData ) {
+                  validation_message += '- ' + item + ' : ' + errorData[item] + '<br/>'
+                }
+              } else {
+                validation_message = errorData
+              }
+              
+              this.$swal({
+                title: '유효성 검사 실패', 
+                html: validation_message, 
+                icon: 'error'
+              })
+            }
+
           })
           
         }

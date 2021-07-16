@@ -46,7 +46,7 @@
                 <tbody class="text-sm font-bold text-gray-600 text-center">
 
                   <tr v-for="(item, index) in listItemSlice" v-bind:key="item.SEQ" class="hover:bg-gray-100">
-                    <th class="p-2 rounded-l-md">{{ (pageNum * 10) + index + 1 }}</th>
+                    <th class="p-2 rounded-l-md">{{ (pageNum * pageSize) + index + 1 }}</th>
                     <td class="p-2">
                       <div class="flex items-center justify-center">
                         <div class="mr-2">
