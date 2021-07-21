@@ -12,6 +12,7 @@
 import AdminHeader from '../components/layout/Header.vue'
 import Sidebar from '../components/layout/Sidebar.vue'
 import { apiTokenRefresh } from '@/api'
+import bus from '@/utils/bus.js'
 
 export default {
   name: 'AdminLayout',
@@ -84,6 +85,7 @@ export default {
           }, 100)
         },
         willClose: () => {
+          console.log('willClose')
           clearInterval(timerInterval)
         }
       }).then((result) => {
@@ -106,9 +108,13 @@ export default {
               icon: 'success'
             })
           })
+        } else {
+          if( result.dismiss == 'timer' ) {
+            bus.$emit('forceAlert', process.env.VUE_APP_AUTH_FAILURE)
+          }
         }
       })
-    }
+    }// EOF   tokenRefresh()
 
   },
 
@@ -121,7 +127,7 @@ export default {
 
     const access_token = this.$store.getters.getUserInfo.access_token
     this.jwtPayLoad = this.$jwtDec.decode(access_token)
-    // 1분에 한번 씩 동작
+    // 1분마다 동작
     this.jwtExpChecker = setInterval( this.jwtTimeChecker, 60000 )
   },
 
