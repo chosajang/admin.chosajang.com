@@ -154,7 +154,7 @@ export default {
             // 파일 업로드 API
             apiEditorImageUpload(FORMDATA)
               .then(res => {
-                const API_DATA = res.data[0]
+                const API_DATA = res.data
                 if (API_DATA.result) {
                   callback(API_DATA.data.file_url, API_DATA.data.logical_name);
                 } else {
@@ -162,8 +162,21 @@ export default {
                 }
               })
               .catch(error => {
-                console.log(error);
-              });
+                const errorResponse = error.response
+                if( errorResponse.status == 400 ) {
+                  const errorData = error.response.data.messages
+                  let validation_message = ''
+                  if( typeof errorData == "object" ) {
+                    for ( let item in errorData ) {
+                      validation_message += '- ' + item + ' : ' + errorData[item] + '\n'
+                    }
+                  } else {
+                    validation_message = errorData
+                  }
+
+                  alert( validation_message )
+                }
+              })
             return false;
           }
         }
