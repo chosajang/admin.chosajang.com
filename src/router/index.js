@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/',
     name: 'default',
-    redirect: '/dashboard'
+    redirect: '/login'
   },
   {
     path: '/login',
@@ -38,7 +38,7 @@ const routes = [
     meta: {
       layout: 'BlankLayout'
     },
-    component: LoginView,
+    component: LoginView
   },
   {
     path: '/dashboard',
