@@ -344,10 +344,10 @@ export default {
       } else {
         this.$swal({
           title: '정보 없음',
-          html: '요청한 회원정보가 존재하지 않습니다<br/>목록으로 돌아갑니다',
+          html: '요청한 정보가 존재하지 않습니다<br/>목록으로 돌아갑니다',
           icon: 'error'
-        }).then(() => {
-          this.$router.push({ path: '/users' })
+        }).then(() => { 
+          this.$router.push({ path: '/articles' })
         })
       }
     })
