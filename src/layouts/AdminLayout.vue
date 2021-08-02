@@ -13,6 +13,7 @@ import AdminHeader from '../components/layout/Header.vue'
 import Sidebar from '../components/layout/Sidebar.vue'
 import { apiTokenRefresh } from '@/api'
 import bus from '@/utils/bus.js'
+import { jwtRemainingTime } from '@/utils/common.js'
 
 export default {
   name: 'AdminLayout',
@@ -20,7 +21,7 @@ export default {
     return {
       userInfo: '',
       jwtPayLoad: '',
-      jwtExpChecker: ''
+      jwtExpChecker: '',
     }
   },
   components: {
@@ -31,13 +32,10 @@ export default {
   methods: {
 
     /**
-     * todo : jwt exp를 확인하여, 로그아웃 전에 JWT 토큰 갱신 API를 실행한다
-     * - 남은 시간 표시
+     * JWT 인증 유효시간을 확인 후, 유효시간 연장 알림 창 실행
      */
     jwtTimeChecker() {
-      const currentTime = new Date()
-      const endTime = new Date(this.jwtPayLoad.exp * 1000)
-      const remainingTime = parseInt( (endTime - currentTime) / 1000 )
+      const remainingTime = jwtRemainingTime( this.jwtPayLoad.exp )
       /**
        * 오차시간 감안하여, 190초 남았을때 토큰 갱신 알림 및 인터벌 종료
        * - 사용자 안내 시간 : 180초
@@ -56,7 +54,7 @@ export default {
          */
         this.tokenRefresh()
       }
-      console.log('남은 시간 : ', remainingTime , '초' )
+      console.log('JWT 토큰 유효 시간 : ', remainingTime , '초' )
     },
 
     /**
@@ -72,6 +70,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: `네, 연장합니다`,
         cancelButtonText: `아니오`,
+        allowOutsideClick: false,
         reverseButtons: true,
         didOpen: () => {
           timerInterval = setInterval(() => {
@@ -85,10 +84,10 @@ export default {
           }, 100)
         },
         willClose: () => {
-          console.log('willClose')
           clearInterval(timerInterval)
         }
       }).then((result) => {
+        clearInterval(timerInterval)
         if (result.isConfirmed) {
           /**
            * 토큰갱신 API 호출
@@ -124,11 +123,11 @@ export default {
 
   mounted() {
     document.body.classList.add('bg-gray-50', 'font-sans')
-
-    const access_token = this.$store.getters.getUserInfo.access_token
-    this.jwtPayLoad = this.$jwtDec.decode(access_token)
-    // 1분마다 동작
-    this.jwtExpChecker = setInterval( this.jwtTimeChecker, 60000 )
+    if( this.$store.getters.getUserInfo.access_token != undefined ) {
+      this.jwtPayLoad = this.$jwtDec.decode(this.$store.getters.getUserInfo.access_token)
+      // 1분마다 동작
+      this.jwtExpChecker = setInterval( this.jwtTimeChecker, 60000 )
+    }
   },
 
   updated() {

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
 import bus from '../utils/bus'
+import { jwtRemainingTime } from '@/utils/common.js'
+import VueJwtDecode from 'vue-jwt-decode'
 
 import LoginView from '../views/login/'
 import DashboardView from '../views/dashboard/'
@@ -22,7 +24,15 @@ const requireAuth = () => (to, from, next) => {
   if( store.getters.getUserInfo.access_token == undefined ) {
     return next('/login')
   } else {
-    return next()
+    const jwtPayload = VueJwtDecode.decode( store.getters.getUserInfo.access_token )
+    const remainingTime = jwtRemainingTime(jwtPayload.exp)
+    if( remainingTime < 1 ) {
+      store.commit('SET_USERINFO', '')
+      localStorage.removeItem('userInfo')
+      return next('/login')
+    } else {
+      return next()
+    }
   }
 }
 

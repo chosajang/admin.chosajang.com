@@ -1,13 +1,10 @@
 
-function getUserInfo () {
-  let userInfo = localStorage.getItem('userInfo');
-  if (userInfo !== null) {
-    userInfo = JSON.parse(userInfo);
-    // TODO : 세션키+유효시간 체크
-    return userInfo;
-  } else {
-    return false;
-  }
+function jwtRemainingTime (exp) {
+  const currentTime = new Date()
+  const expTime = new Date(exp * 1000)
+  const remainingTime = parseInt( (expTime - currentTime) / 1000 )
+
+  return remainingTime
 }
 
 function btnSpinner (btnObj, status, message, style) {
@@ -17,6 +14,6 @@ function btnSpinner (btnObj, status, message, style) {
 }
 
 export {
-  getUserInfo,
+  jwtRemainingTime,
   btnSpinner
 };

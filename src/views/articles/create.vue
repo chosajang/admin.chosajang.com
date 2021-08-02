@@ -1,6 +1,6 @@
 <template>
   <main class="md:ml-52">
-    <div class="container max-w-screen-2xl m-auto p-4 md:p-6">
+    <div class="container max-w-full m-auto p-4 md:p-6">
 
       <!-- Breadcrumb : ST -->
       <div class="mb-4">
@@ -101,8 +101,16 @@ import '@toast-ui/editor/dist/i18n/ko-kr'
 import 'tui-color-picker/dist/tui-color-picker.css'
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css'
 
+
+
 import { Editor } from '@toast-ui/vue-editor'
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
+
+import 'prismjs/themes/prism.css'
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-clojure.js'
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 export default {
   name: 'userUpdate',
@@ -111,7 +119,6 @@ export default {
   },
   data() {
     return {
-      // user_seq: this.$route.params.user_seq,
       article: {
         title: '',
         contents: '',
@@ -145,7 +152,8 @@ export default {
           ['scrollSync'],
         ],
         plugins: [
-          colorSyntax
+          colorSyntax,
+          [ codeSyntaxHighlight, { highlighter: Prism } ]
         ],
         hooks: {
           addImageBlobHook: function (blob, callback) {
