@@ -1,9 +1,9 @@
 <template>
   <main class="md:ml-52">
-    <div class="container max-w-full m-auto p-4 md:p-6">
+    <div class="container max-w-full m-auto">
 
       <!-- Breadcrumb : ST -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
             <li class="breadcrumb-item text-gray-600"><router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">게시물 관리</router-link></li>
@@ -15,10 +15,11 @@
             <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글 조회</li> 
           </ol>
         </nav>
-      </div><!-- Breadcrumb : ED -->
+      </div> -->
+      <!-- Breadcrumb : ED -->
       
       <!--// Card : ST -->
-      <div class="my-4">
+      <div class="">
         <div class="grid grid-cols-12 gap-4"><!--// Card Col : ST -->
 
           <!--// Form : ST -->
@@ -44,7 +45,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 items-center justify-center m-4 z-0">
+              <div class="grid grid-cols-1 items-center justify-center mx-4 z-0">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
                   <div ref="editorWrap" class="h-96">

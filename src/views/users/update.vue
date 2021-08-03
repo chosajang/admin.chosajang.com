@@ -1,9 +1,9 @@
 <template>
   <main class="md:ml-52">
-    <div class="container max-w-screen-lg m-auto p-4 md:p-6">
+    <div class="container max-w-screen-lg m-auto">
 
       <!-- Breadcrumb : ST -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
             <li class="breadcrumb-item text-gray-600"><router-link to="/users" class="font-medium text-blue-500 hover:underline mx-2">계정 관리</router-link></li>
@@ -15,10 +15,11 @@
             <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">조회</li> 
           </ol>
         </nav>
-      </div><!-- Breadcrumb : ED -->
+      </div> -->
+      <!-- Breadcrumb : ED -->
 
       <!-- Page Title -->
-      <div class="border-b mb-4"><p class="text-2xl font-bold">계정 정보 수정</p></div>
+      <div class="border-b my-4 pl-2"><p class="text-2xl font-bold">계정 정보 수정</p></div>
       
       <!--// Card : ST -->
       <div class="my-4">

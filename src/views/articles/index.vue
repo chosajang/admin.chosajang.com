@@ -1,9 +1,9 @@
 <template>
   <main class="md:ml-52">
-    <div class="container max-w-screen-lg m-auto p-4 md:p-6">
+    <div class="container max-w-screen-lg m-auto">
 
       <!-- Breadcrumb : ST -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
             <li class="breadcrumb-item text-gray-600"><router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">게시물 관리</router-link></li>
@@ -11,10 +11,11 @@
             <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">목록</li> 
           </ol>
         </nav>
-      </div><!-- Breadcrumb : ED -->
+      </div> -->
+      <!-- Breadcrumb : ED -->
 
       <!--// Board 2 Style : ST -->
-      <div class="my-4">
+      <div class="md:my-4">
         <div class="grid grid-cols-12 gap-4"><!--// Card Col : ST -->
 
           <!--// Table : ST -->
@@ -39,7 +40,8 @@
                   <tr class="text-sm text-gray-600 bg-gray-200 rounded">
                     <th class="p-2 rounded-tl rounded-bl"></th>
                     <th class="p-2">제목</th>
-                    <th class="p-2">작성자</th>
+                    <th class="p-2">상태</th>
+                    <th class="p-2 hidden md:table-cell">작성자</th>
                     <th class="p-2 rounded-tr rounded-br hidden md:table-cell">작성일</th>
                   </tr>
                 </thead>
@@ -49,6 +51,16 @@
                     <th class="p-2 rounded-l-md">{{ (pageNum * pageSize) + index + 1 }}</th>
                     <td class="p-2 text-left"><router-link :to="'/articles/'+item.article_seq" class="text-blue-500 hover:underline">{{item.title}}</router-link></td>
                     <td class="p-2">
+                      <span v-if="item.post_yn == 'Y'" class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span class="absolute inset-0 bg-green-200 opacity-50 rounded-lg"></span>
+                        <span class="relative text-xs">게시중</span>
+                      </span>
+                      <span v-if="item.post_yn == 'N'" class="relative inline-block px-3 py-1 font-semibold text-red-600 leading-tight">
+                        <span class="absolute inset-0 opacity-50 rounded-lg"></span>
+                        <span class="relative text-xs">미게시</span>
+                      </span>
+                    </td>
+                    <td class="p-2 hidden md:table-cell">
                       <div class="flex items-center justify-center">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">

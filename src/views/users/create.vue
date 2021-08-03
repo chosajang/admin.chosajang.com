@@ -3,7 +3,7 @@
     <div class="container max-w-screen-lg m-auto p-4 md:p-6">
 
       <!-- Breadcrumb : ST -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <nav aria-label="breadcrumb"> 
           <ol class="breadcrumb flex text-sm">
             <li class="breadcrumb-item text-gray-600"><router-link to="/admin" class="text-gray-600 hover:text-blue-700 mx-2">관리자 관리</router-link></li>
@@ -11,7 +11,8 @@
             <li class="breadcrumb-item active text-blue-700 hover:text-blue-700 mx-2" aria-current="page">관리자 등록</li> 
           </ol>
         </nav>
-      </div><!-- Breadcrumb : ED -->
+      </div> -->
+      <!-- Breadcrumb : ED -->
 
       <!-- Page Title -->
       <div class="border-b mb-4"><p class="text-2xl font-bold">관리자 등록</p></div>
