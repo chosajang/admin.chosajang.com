@@ -24,7 +24,7 @@ export default {
     };
   },
   metaInfo: {
-    title: 'CSJ Admin',
+    title: '블로그 관리자',
     titleTemplate: '%s',
     // meta: [
     //   {

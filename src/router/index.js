@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
-import bus from '../utils/bus'
+// import bus from '../utils/bus'
 import { jwtRemainingTime } from '@/utils/common.js'
 import VueJwtDecode from 'vue-jwt-decode'
 
@@ -18,22 +18,50 @@ import ArticleReadView from '../views/articles/read'
 Vue.use(VueRouter)
 
 const requireAuth = () => (to, from, next) => {
-  if( to.meta.pageLoader ){
-    bus.$emit('start:spinner')
-  }
-  if( store.getters.getUserInfo.access_token == undefined ) {
-    return next('/login')
+  /**
+   * 1. login으로 이동시,
+   * 1.1 토큰이 있는 경우,
+   * - 토큰이 유효한 경우 : next('/dashboard')
+   * - 유효하지 않은 경우 : 토큰정보 삭제 후 로그인 페이지로 이동
+   * 1.2 토큰이 없는 경우,
+   * - 로그인 페이지로 이동
+   * 2. 그외 페이지 접근 시
+   * 2.1 토큰이 있는 경우,
+   * - 토큰이 유효한 경우 : next()
+   * - 토큰이 유효하지 않은 경우 : 토큰정보 삭제 후 로그인 페이지로 이동
+   * 2.2 토큰이 없는 경우,
+   * - 로그인 페이지로 이동
+   */
+  if( to.name == 'login' ){
+    if( store.getters.getUserInfo.access_token == undefined || store.getters.getUserInfo.access_token == '' ) {
+      return next()
+    } else {
+      const jwtPayload = VueJwtDecode.decode( store.getters.getUserInfo.access_token )
+      const remainingTime = jwtRemainingTime(jwtPayload.exp)
+      if( remainingTime < 1 ) {
+        store.commit('SET_USERINFO', '')
+        localStorage.removeItem('userInfo')
+        return next()
+      } else {
+        return next('/dashboard')
+      }
+    }
   } else {
-    const jwtPayload = VueJwtDecode.decode( store.getters.getUserInfo.access_token )
-    const remainingTime = jwtRemainingTime(jwtPayload.exp)
-    if( remainingTime < 1 ) {
-      store.commit('SET_USERINFO', '')
-      localStorage.removeItem('userInfo')
+    if( store.getters.getUserInfo.access_token == undefined || store.getters.getUserInfo.access_token == '' ) {
       return next('/login')
     } else {
-      return next()
+      const jwtPayload = VueJwtDecode.decode( store.getters.getUserInfo.access_token )
+      const remainingTime = jwtRemainingTime(jwtPayload.exp)
+      if( remainingTime < 1 ) {
+        store.commit('SET_USERINFO', '')
+        localStorage.removeItem('userInfo')
+        return next('/login')
+      } else {
+        return next()
+      }
     }
   }
+  
 }
 
 const routes = [
@@ -48,7 +76,8 @@ const routes = [
     meta: {
       layout: 'BlankLayout'
     },
-    component: LoginView
+    component: LoginView,
+    beforeEnter: requireAuth()
   },
   {
     path: '/dashboard',

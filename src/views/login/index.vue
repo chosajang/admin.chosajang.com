@@ -179,13 +179,6 @@ export default {
 
   },
   mounted() {
-    /**
-     * 로그인 상태로 접속한 경우, 대시보드로 이동
-     */
-    if( this.$store.getters.getUserInfo.access_token != undefined ){
-      this.$router.push({ path: '/dashboard' })
-    }
-
     this.idChecked = localStorage.getItem('idChecked') == null ? false : localStorage.getItem('idChecked')
     this.loginForm.id.value = localStorage.getItem('rememberId') == null ? '' : localStorage.getItem('rememberId')
     document.getElementById('app').classList.add('h-screen', 'overflow-hidden', 'flex', 'items-center', 'justify-center', 'font-sans', 'bg-gray-900')

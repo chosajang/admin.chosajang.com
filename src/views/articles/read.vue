@@ -260,14 +260,13 @@ export default {
           
           apiArticleUpdate(FORMDATA)
           .then( () => {
-            // const apiData = res.data
             this.$swal.fire({
               position: 'bottom-end',
               icon: 'success',
               html: '<p class="text-lg">수정 되었습니다<p>',
               width: 300,
               showConfirmButton: false,
-              timer: 1000
+              timer: 500
             })
           })
           .catch(error => {
@@ -342,6 +341,7 @@ export default {
   },
 
   created() {
+
     apiArticleRead(this.article_seq)
     .then(res => {
       if( res.status == 200 ) {
