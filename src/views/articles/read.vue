@@ -1,22 +1,6 @@
 <template>
   <main class="md:ml-52">
     <div class="container max-w-full m-auto">
-
-      <!-- Breadcrumb : ST -->
-      <!-- <div class="mb-4">
-        <nav aria-label="breadcrumb"> 
-          <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">게시물 관리</router-link></li>
-            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600">
-              <router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
-            </li>
-            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글 조회</li> 
-          </ol>
-        </nav>
-      </div> -->
-      <!-- Breadcrumb : ED -->
       
       <!--// Card : ST -->
       <div class="">
@@ -30,7 +14,7 @@
               <div class="grid grid-cols-4 gap-4 items-center justify-center m-4">
                 <div class="col-span-4 md:col-span-3">
                   <label class="block text-sm mb-1" for="title">제목</label>
-                  <input v-model="article.title" class="w-full px-5 py-1 text-2xl text-gray-700 outline-none border-transparent border-b-2 border-blue-100 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
+                  <input v-model="article.title" class="w-full px-5 py-1 text-xl text-gray-700 outline-none border-transparent border-b-2 border-blue-100 hover:border-blue-400 focus:border-blue-400 focus:bg-white duration-200" id="title" name="title" type="text" required="true" placeholder="글 제목">
                 </div>
                 <div class="col-span-4 md:col-span-1">
                   <label class="block text-sm mb-1">게시여부</label>
@@ -48,16 +32,17 @@
               <div class="grid grid-cols-1 items-center justify-center mx-4 z-0">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
-                  <div ref="editorWrap" class="h-96">
+                  <div ref="editorWrap" class="h-full">
                     <editor
                       ref="toastuiEditor"
                       v-if="editorRender"
-                      height="100%"
+                      height="auto"
+                      previewStyle="tab"
                       :initialValue="article.contents"
                       :options="editorOptions"
                     />
                   </div>
-                  <div @mousedown="dragBarClick" class="w-full h-4 border bg-gray-100 cursor-pointer rounded text-xs text-gray-600 text-center hover:text-blue-600">
+                  <div @mousedown="dragBarClick" class="hidden w-full h-4 border bg-gray-100 cursor-pointer rounded text-xs text-gray-600 text-center hover:text-blue-600">
                     <i class="fas fa-sort"></i> 입력창 크기 조절
                   </div>
                 </div>
@@ -138,7 +123,7 @@ export default {
       imagePreview: '',
       post_yn: false,
       toggleBtn : {
-        height: 28,
+        height: 26,
         width: 60,
         fontSize: 12,
         color: '#00A488',
@@ -149,9 +134,9 @@ export default {
       },
       editorOptions: {
         language: 'ko',
-        previewStyle: 'vertical',
         initialEditType: 'markdown',
         placeholder: '여기에 글을 작성하세요',
+        height: 'auto',
         toolbarItems: [
           ['heading', 'bold', 'italic', 'strike'],
           ['hr', 'quote'],

@@ -1,22 +1,6 @@
 <template>
   <main class="md:ml-52">
     <div class="container max-w-full m-auto">
-
-      <!-- Breadcrumb : ST -->
-      <!-- <div class="mb-4">
-        <nav aria-label="breadcrumb"> 
-          <ol class="breadcrumb flex text-sm">
-            <li class="breadcrumb-item text-gray-600"><router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">게시물 관리</router-link></li>
-            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600">
-              <router-link to="/articles" class="font-medium text-blue-500 hover:underline mx-2">목록</router-link>
-            </li>
-            <li><i class="fas fa-chevron-right text-gray-300"></i></li>
-            <li class="breadcrumb-item active font-medium text-gray-600 mx-2" aria-current="page">글쓰기</li> 
-          </ol>
-        </nav>
-      </div> -->
-      <!-- Breadcrumb : ED -->
       
       <!--// Card : ST -->
       <div class="">
@@ -47,14 +31,15 @@
               <div class="grid grid-cols-1 items-center justify-center mx-4 z-0">
                 <div class="col-span-1">
                   <label class="block text-sm" for="cus_name">내용</label>
-                  <div ref="editorWrap" class="h-96">
+                  <div ref="editorWrap" class="h-full">
                     <editor
                       ref="toastuiEditor"
-                      height="100%"
+                      height="auto"
+                      previewStyle="tab"
                       :options="editorOptions"
                     />
                   </div>
-                  <div @mousedown="dragBarClick" class="w-full h-4 border bg-gray-100 cursor-pointer rounded text-xs text-gray-600 text-center hover:text-blue-600">
+                  <div @mousedown="dragBarClick" class="hidden w-full h-4 border bg-gray-100 cursor-pointer rounded text-xs text-gray-600 text-center hover:text-blue-600">
                     <i class="fas fa-sort"></i> 입력창 크기 조절
                   </div>
                 </div>
@@ -141,7 +126,6 @@ export default {
       },
       editorOptions: {
         language: 'ko',
-        previewStyle: 'vertical',
         initialEditType: 'markdown',
         placeholder: '여기에 글을 작성하세요',
         toolbarItems: [
